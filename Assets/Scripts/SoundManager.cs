@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
     }
     
     /// <summary>
-    /// 배경 음악을 지정합니다, AudioType.으로 접근하여 파마리미터를 지정합니다.
+    /// Choose the Backgorund Music and You can Change BGM with AudioType Parameter.
     /// </summary>
     /// <param name="Sound"></param>
     public void BSound(AudioType type)
@@ -81,7 +81,7 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    ///일회성 효과음을 재생합니다, AudioType.으로 접근하여 파마리미터를 지정합니다. 
+    /// Play Effective Sound, You can Choose the sound with AudioType Parameter.
     /// </summary>
     /// <param name="Sound"></param>
     public void ESound(AudioType type)
