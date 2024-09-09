@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8644552403585033432}
   - component: {fileID: 8835059532436707491}
+  - component: {fileID: 3247076782323355480}
   m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7237aae62e505f14d9d605a2a3ecd92d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -83,7 +84,58 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
+  m_SpriteSortPoint: 0
+--- !u!331 &3247076782323355480
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4742391617948874690}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -2413806693520163455, guid: 35fc9182ed58e7c48a4cecdb2bda926b, type: 3}
+  m_MaskAlphaCutoff: 0.514
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
 --- !u!1 &5431170028310198013
 GameObject:
@@ -507,12 +559,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idx: 0
+  idx2: 0
   front: {fileID: 5604229383747074896}
   back: {fileID: 4742391617948874690}
   Anim: {fileID: 7027975559328888113}
   clip: {fileID: 0}
   frontImage: {fileID: 375808298237857322}
-  backImage: {fileID: 0}
+  backImage: {fileID: 8835059532436707491}
 --- !u!95 &7027975559328888113
 Animator:
   serializedVersion: 5
