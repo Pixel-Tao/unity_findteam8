@@ -1,18 +1,190 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    /// <summary>
+    /// Singleton pattern
+    /// </summary>
+    public static GameManager Instance { get; private set; }
 
+    [Header("제한시간 텍스트")]
+    public Text timeText;
+
+    [Header("카드 프리팹")]
+    public GameObject cardPrefab;
+
+    [Header("카드가 배치될 게임 오브젝트")]
+    public GameObject cardBoard;
+
+    [Header("선택한 카드")]
+    public GameObject firstCard;
+    public GameObject secondCard;
+
+    // 카드 인스턴스 리스트
+    private List<GameObject> cardList;
+
+    // 흘러가는 시간
+    private float time;
+
+    private void Awake()
+    {
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
- 
+        GameStart();
+    }
+
+    private void Update()
+    {
+        time += Time.deltaTime;
+        timeText.text = time.ToString("F2");
+
+        if (time >= 30.0f)
+        {
+            GameOver();
+        }
+    }
+
+    /// <summary>
+    /// 카드를 섞는다.
+    /// </summary>
+    /// <returns>섞은 카드 번호 배열</returns>
+    private int[] SuffleCards()
+    {
+        // 카드 섞기
+        int[] cards = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
+
+        return cards.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
+    }
+
+    /// <summary>
+    /// 매칭 여부를 확인한다.
+    /// </summary>
+    /// <returns>firstCard 와 secondCard 의 일치 여부</returns>
+    private bool IsCardMatched()
+    {
+        string firstCardName = firstCard.transform.Find("Front").GetComponent<SpriteRenderer>().sprite.name;
+        string secondCardName = secondCard.transform.Find("Front").GetComponent<SpriteRenderer>().sprite.name;
+
+        if (string.IsNullOrWhiteSpace(firstCardName) && string.IsNullOrWhiteSpace(secondCardName))
+            return false;
+
+        return firstCardName == secondCardName;
+    }
+
+    /// <summary>
+    /// 게임을 시작한다.
+    /// </summary>
+    public void GameStart()
+    {
+        time = 0.0f;
+        cardList = new List<GameObject>();
+        int[] cardNumbers = SuffleCards();
+
+        for (int i = 0; i < cardNumbers.Length; i++)
+        {
+            GameObject newCard = Instantiate(cardPrefab);
+            newCard.transform.parent = cardBoard.transform;
+
+            float x = (i / 4) * 1.1f - 1.65f;
+            float y = (i % 4) * 1.1f - 2.4f;
+            newCard.transform.position = new Vector3(x, y, 0);
+
+            string cardName = "ball" + cardNumbers[i].ToString();
+            GameObject front = newCard.transform.Find("Front").gameObject;
+
+            SpriteRenderer spriteRenderer = front.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = Resources.Load<Sprite>(cardName);
+
+            cardList.Add(newCard);
+        }
+
+        Time.timeScale = 1.0f;
+    }
+
+    /// <summary>
+    /// 게임을 제한시간 내에 모든 카드를 찾아냈을 경우 실행
+    /// </summary>
+    public void GameClear()
+    {
+        // 성공 사운드
+        // AudioManager.Instance.PlaySound("gameclear");
+
+        // 텍스트 변경 or 게임 클리어 팝업
+
+        // 게임을 멈춤
+        Time.timeScale = 0.0f;
+    }
+
+    /// <summary>
+    /// 제한시간 내에 게임을 성공하지 못했을 경우 실행
+    /// </summary>
+    public void GameOver()
+    {
+        // 성공 사운드
+        // AudioManager.Instance.PlaySound("gameover");
+
+        // 텍스트 변경 or 게임 오버 팝업
+
+
+        // 게임을 멈춤
+        Time.timeScale = 0.0f;
+    }
+
+    /// <summary>
+    /// 선택한 카드를 저장하고 매칭 여부를 확인한다.
+    /// </summary>
+    /// <param name="cardObj">선택한 카드 GameObject</param>
+    public void SelectCard(GameObject cardObj)
+    {
+        // 첫번째 카드가 들어오면 firstCard 가 null 일때 GameObject 를 넣어주고 아무런 행위를 하지않고 실행 종료
+        if (firstCard == null)
+        {
+            firstCard = cardObj;
+            return;
+        }
+        // 두번째 카드 들어오면 secondCard 가 null 일때 GameObject 를 넣어주고 매칭 여부를 확인한다.
+        else if (secondCard == null)
+        {
+            secondCard = cardObj;
+
+            if (IsCardMatched())
+            {
+                // 카드 뒤집는 사운드
+                // AudioManager.Instance.PlaySound("flip");
+
+                // 일치하는 카드 제거
+                cardList.Remove(firstCard);
+                cardList.Remove(secondCard);
+                //firstCard.GetComponent<Card>().DestroyCard();
+                //secondCard.GetComponent<Card>().DestroyCard();
+
+                int cardsLeft = cardList.Count;
+
+                // cardList에서 남은 카드가 없을 경우 게임 클리어
+                if (cardsLeft == 0)
+                {
+                    GameClear();
+                }
+            }
+            else
+            {
+                // 카드 원래대로 뒤집기
+                //firstCard.GetComponent<Card>().CloseCard();
+                //secondCard.GetComponent<Card>().CloseCard();
+            }
+
+            // 매칭여부 확인 후 firstCard, secondCard 초기화
+            firstCard = null;
+            secondCard = null;
+        }
     }
 }

@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 670632517}
   - component: {fileID: 670632516}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,6 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587a3f7e0c8d34a41985fb5ed50cc0d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardPref: {fileID: 0}
+  firstCard: {fileID: 0}
+  secondCard: {fileID: 0}
 --- !u!4 &670632517
 Transform:
   m_ObjectHideFlags: 0
