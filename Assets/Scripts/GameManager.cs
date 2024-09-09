@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         time += Time.deltaTime;
+        if (timeText == null) return;
         timeText.text = time.ToString("F2");
 
         if (time >= 30.0f)
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameStart()
     {
+        return;
         time = 0.0f;
         cardList = new List<GameObject>();
         int[] cardNumbers = SuffleCards();
