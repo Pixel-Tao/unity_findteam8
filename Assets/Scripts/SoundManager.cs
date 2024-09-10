@@ -20,7 +20,7 @@ public enum AudioType
 }
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager inst;
+    public static SoundManager inst { get; private set; }
     AudioSource _sound;
     
     [Header ("ListofFiles")]
@@ -39,10 +39,6 @@ public class SoundManager : MonoBehaviour
     public AudioClip _Ball03        = null;
     public AudioClip _Win           = null;
     public AudioClip _Defeat        = null;
-
-
-
-    AudioType _type                 = AudioType.None;
 
     private void Awake()
     {

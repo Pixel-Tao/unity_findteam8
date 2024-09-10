@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class StartBtn : MonoBehaviour
+public class StartScene : MonoBehaviour
 {
     public void retry()
     {
-        SceneManager.LoadScene("MainScene");
+        SoundManager.inst.ESound(AudioType.Click);
+        SceneManager.LoadScene("GameScene");
     }
 
     public void gameQuit()
     {
+        SoundManager.inst.ESound(AudioType.Click);
         Application.Quit();
     }
 }
