@@ -33,15 +33,18 @@ public class Card : MonoBehaviour
     {
         idx = frontNumber;
         idx2 = backNumber;
-        frontImage.sprite = Resources.Load<Sprite>($"rtan{frontNumber}");
-        backImage.sprite = Resources.Load<Sprite>($"backColor{backNumber}");
+        frontImage.sprite = Resources.Load<Sprite>($"teamPhoto{frontNumber}");
+        backImage.sprite = Resources.Load<Sprite>($"ballBack{backNumber}");
 
-        Debug.Log($"Setting frontNumber: {frontNumber}, backNumber: {backNumber}");
+    }
 
-        frontImage.sprite = Resources.Load<Sprite>($"rtan{frontNumber}");
-        backImage.sprite = Resources.Load<Sprite>($"backColor{backNumber}");
-
-
+    public void RotateFrontFace(float angle)
+    {
+        if (backImage != null)
+        {
+            // 앞면만 Z축을 기준으로 회전
+            backImage.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
     }
 
     public void OpenCard()

@@ -27,26 +27,20 @@ public class Board : MonoBehaviour
         int[] backArr = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
         backArr = backArr.OrderBy(x => Random.Range(0f, 15f)).ToArray();
 
-        Debug.Log("B");
-           
+
         for (int i = 0; i < 16; i++)
         {
             GameObject go = Instantiate(card, this.transform);
+
+            float x = (i % 4) * 1.4f - 2.1f;
+            float y = (i / 4) * 1.4f - 2.0f;
+
+            go.transform.position = new Vector2(x, y);
 
             int frontImage = frontArr[i];
             int backImage = backArr[i];
 
             go.GetComponent<Card>().Setting(frontImage, backImage);
-
-            // 랜덤한 x, y 좌표 생성
-            float randomX = Random.Range(-2.0f, 2.0f);
-            float randomY = Random.Range(-4.0f, 4.0f);
-
-            // 새로운 카드 생성 및 배치
-            Vector2 randomPosition = new Vector2(randomX, randomY);
-            go.transform.position = randomPosition;
-
-           
         }
     }
 }

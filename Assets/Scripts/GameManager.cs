@@ -105,24 +105,7 @@ public class GameManager : MonoBehaviour
         // 게임 시작 사운드
         SoundManager.inst.BSound(AudioType.BGM1);
         time = 0.0f;
-        cardList = new List<GameObject>();
-        int[] cardNumbers = ShuffleCardsFront();
-        int[] cardBacks = ShuffleCardsBack();
-
-        //for (int i = 0; i < cardNumbers.Length; i++)
-        //{
-        //    GameObject newCard = Instantiate(cardPrefab);
-        //    Card card = newCard.GetComponent<Card>();
-        //    newCard.transform.parent = cardBoard.transform;
-
-        //    float x = (i / 4) * 1.1f - 1.65f;
-        //    float y = (i % 4) * 1.1f - 2.4f;
-        //    newCard.transform.position = new Vector3(x, y, 0);
-
-        //    card.Setting(cardNumbers[i], cardBacks[i]);
-
-        //    cardList.Add(newCard);
-        //}
+        
 
         Time.timeScale = 1.0f;
     }
