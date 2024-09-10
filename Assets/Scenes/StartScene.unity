@@ -343,6 +343,7 @@ MonoBehaviour:
   _Ball03: {fileID: 8300000, guid: b795c5eeb737da34ebba7e7d59ad0caf, type: 3}
   _Win: {fileID: 8300000, guid: 6b5b3d6660cfa264aac5d9a88816f059, type: 3}
   _Defeat: {fileID: 8300000, guid: 2829de60efa6ed046b48a7ff9ed79c79, type: 3}
+  _Dodge: {fileID: 8300000, guid: 63f8bd5f7717c734ab4bc69273ff5dce, type: 3}
 --- !u!4 &532293831
 Transform:
   m_ObjectHideFlags: 0

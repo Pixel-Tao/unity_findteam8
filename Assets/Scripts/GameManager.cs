@@ -6,6 +6,14 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameModeType
+{
+    None,
+    Normal,
+    Hard,
+    Crazy
+}
+
 public class GameManager : MonoBehaviour
 {
     /// <summary>
@@ -30,6 +38,8 @@ public class GameManager : MonoBehaviour
     public GameObject firstCard;
     public GameObject secondCard;
 
+    //Add by orgin/feature_lms 
+    public Board Board;
 
     // 카드 인스턴스 리스트
     private List<Card> cardList;
@@ -38,6 +48,8 @@ public class GameManager : MonoBehaviour
     private float time;
     [Header("제한시간")]
     public float endTime = 30.0f;
+
+    public GameModeType GameMode { get; private set; } = GameModeType.None;
 
     private void Awake()
     {
@@ -62,27 +74,6 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 카드를 섞는다.
-    /// </summary>
-    /// <returns>섞은 카드 번호 배열</returns>
-    private int[] ShuffleCardsFront()
-    {
-        // 카드 섞기
-        int[] cards = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
-
-        return cards.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
-    }
-
-    private int[] ShuffleCardsBack()
-    {
-        // 카드 섞기
-        int[] cards = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-
-        return cards.OrderBy(item => Random.Range(0f, 15f)).ToArray();
-    }
-
-
-    /// <summary>
     /// 매칭 여부를 확인한다.
     /// </summary>
     /// <returns>firstCard 와 secondCard 의 일치 여부</returns>
@@ -103,11 +94,25 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         // 게임 시작 사운드
-        SoundManager.inst.BSound(AudioType.BGM1);
+        //SoundManager.inst.BSound(AudioType.BGM);
+        SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
-        cardList = cardBoard.GetComponent<Board>().PlaceCardsRandomly();
-
-
+        Board board = cardBoard.GetComponent<Board>();
+        GameMode = GameModeType.Hard;
+        // 일반 배치
+        switch (GameMode)
+        {
+            case GameModeType.Normal:
+                cardList = board.NormalModeShuffle();
+                break;
+            case GameModeType.Hard:
+                cardList = board.HardModeShuffle();
+                break;
+            case GameModeType.Crazy:
+                cardList = board.CrazyModeShuffle();
+                break;
+        }
+        // BallSpawner();
         Time.timeScale = 1.0f;
     }
 
@@ -156,6 +161,7 @@ public class GameManager : MonoBehaviour
         if (firstCard == null)
         {
             firstCard = cardObj;
+            SoundManager.inst.ESound(AudioType.Ball01); // 오디오 클립이 한 번 재생
             return;
         }
         // 두번째 카드 들어오면 secondCard 가 null 일때 GameObject 를 넣어주고 매칭 여부를 확인한다.
@@ -184,6 +190,9 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                // 카드 뒤집기 실패 사운드
+                SoundManager.inst.ESound(AudioType.Dodge);
+
                 // 카드 원래대로 뒤집기
                 firstCard.GetComponent<Card>().CloseCard();
                 secondCard.GetComponent<Card>().CloseCard();
