@@ -7,21 +7,21 @@ public class Card : MonoBehaviour
     public int idx = 0;
     public int idx2 = 0;
 
-    public GameObject front; // Ä«µå ¾Õ¸é
-    public GameObject back;  // Ä«µå µŞ¸é
+    public GameObject front; // ì¹´ë“œ ì•ë©´
+    public GameObject back;  // ì¹´ë“œ ë’·ë©´
 
-    public Animator Anim; // ¾Ö´Ï¸ŞÀÌ¼Ç º¯¼ö
+    public Animator Anim; // ì• ë‹ˆë©”ì´ì…˜ ë³€ìˆ˜
 
-    AudioSource audioSource; // ¿Àµğ¿À ¼Ò½º º¯¼ö 
+    AudioSource audioSource; // ì˜¤ë””ì˜¤ ì†ŒìŠ¤ ë³€ìˆ˜ 
     public AudioClip clip;
 
-    public SpriteRenderer frontImage; // ÆÀ¿ø »çÁø
-    public SpriteRenderer backImage;  // µŞ¸é
+    public SpriteRenderer frontImage; // íŒ€ì› ì‚¬ì§„
+    public SpriteRenderer backImage;  // ë’·ë©´
 
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); // ¿Àµğ¿À¼Ò½º ÄÄÆ÷³ÍÆ® ½ÇÇà
+        audioSource = GetComponent<AudioSource>(); // ì˜¤ë””ì˜¤ì†ŒìŠ¤ ì»´í¬ë„ŒíŠ¸ ì‹¤í–‰
     }
 
 
@@ -43,19 +43,12 @@ public class Card : MonoBehaviour
         frontImage.sprite = Resources.Load<Sprite>($"rtan{frontNumber}");
         backImage.sprite = Resources.Load<Sprite>($"backColor{backNumber}");
 
-        // ÀÌ¹ÌÁö°¡ Á¦´ë·Î ·ÎµåµÇÁö ¾ÊÀ¸¸é ·Î±×¸¦ ³²±è
-        if (frontImage.sprite == null)
-            Debug.LogError($"Failed to load front sprite for rtan{frontNumber}");
-
-        if (backImage.sprite == null)
-            Debug.LogError($"Failed to load back sprite for backColor{backNumber}");
-
 
     }
 
     public void OpenCard()
     {
-        audioSource.PlayOneShot(clip); // ¿Àµğ¿À Å¬¸³ÀÌ ÇÑ ¹ø Àç»ı
+        audioSource.PlayOneShot(clip); // ì˜¤ë””ì˜¤ í´ë¦½ì´ í•œ ë²ˆ ì¬ìƒ
         Anim.SetBool("isOpen", true);
         front.SetActive(true);
         back.SetActive(false);

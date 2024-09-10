@@ -7,10 +7,19 @@ public class Board : MonoBehaviour
 {
 
     public GameObject card;
+    public Vector2 areaMin; // 배치 영역의 최소값 (왼쪽 아래)
+    public Vector2 areaMax; // 배치 영역의 최대값 (오른쪽 위)
 
 
 
     void Start()
+    {
+        
+        PlaceCardsRandomly();
+
+    }
+
+    public void PlaceCardsRandomly()
     {
         int[] frontArr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
         frontArr = frontArr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
@@ -23,18 +32,20 @@ public class Board : MonoBehaviour
         {
             GameObject go = Instantiate(card, this.transform);
 
-            float x = (i % 4) * 1.4f - 2.1f;
-            float y = (i / 4) * 1.4f - 2.0f;
-
-            go.transform.position = new Vector2(x, y);
-
             int frontImage = frontArr[i];
             int backImage = backArr[i];
 
             go.GetComponent<Card>().Setting(frontImage, backImage);
+
+            // 랜덤한 x, y 좌표 생성
+            float randomX = Random.Range(-2.0f, 2.0f);
+            float randomY = Random.Range(-4.0f, 4.0f);
+
+            // 새로운 카드 생성 및 배치
+            Vector2 randomPosition = new Vector2(randomX, randomY);
+            go.transform.position = randomPosition;
+
+           
         }
-
-
     }
-
 }
