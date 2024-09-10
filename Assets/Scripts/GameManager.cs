@@ -6,6 +6,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class GameManager : MonoBehaviour
 {
     /// <summary>
@@ -29,7 +30,9 @@ public class GameManager : MonoBehaviour
     [Header("선택한 카드")]
     public GameObject firstCard;
     public GameObject secondCard;
-
+    
+    //Add by orgin/feature_lms 
+    public Board Board;  
 
     // 카드 인스턴스 리스트
     private List<GameObject> cardList;
@@ -55,7 +58,7 @@ public class GameManager : MonoBehaviour
         if (timeText == null) return;
         timeText.text = time.ToString("F2");
 
-        if (time >= endTime)
+        while(false)//if (time >= endTime)
         {
             GameOver();
         }
@@ -68,17 +71,14 @@ public class GameManager : MonoBehaviour
     private int[] ShuffleCardsFront()
     {
         // 카드 섞기
-        int[] cards = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
-
-        return cards.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
+        int[] cards = Board.GetCardArray()[0].ToArray<int>();
+        return cards;
     }
-
     private int[] ShuffleCardsBack()
     {
         // 카드 섞기
-        int[] cards = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-
-        return cards.OrderBy(item => Random.Range(0f, 15f)).ToArray();
+        int[] cards = Board.GetCardArray()[1].ToArray<int>();
+        return cards;
     }
 
 
@@ -103,27 +103,10 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         // 게임 시작 사운드
-        SoundManager.inst.BSound(AudioType.BGM1);
+        //SoundManager.inst.BSound(AudioType.BGM);
+        SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
-        cardList = new List<GameObject>();
-        int[] cardNumbers = ShuffleCardsFront();
-        int[] cardBacks = ShuffleCardsBack();
-
-        for (int i = 0; i < cardNumbers.Length; i++)
-        {
-            GameObject newCard = Instantiate(cardPrefab);
-            Card card = newCard.GetComponent<Card>();
-            newCard.transform.parent = cardBoard.transform;
-
-            float x = (i / 4) * 1.1f - 1.65f;
-            float y = (i % 4) * 1.1f - 2.4f;
-            newCard.transform.position = new Vector3(x, y, 0);
-
-            card.Setting(cardNumbers[i], cardBacks[i]);
-
-            cardList.Add(newCard);
-        }
-
+        BallSpawner();
         Time.timeScale = 1.0f;
     }
 
@@ -208,6 +191,35 @@ public class GameManager : MonoBehaviour
             // 매칭여부 확인 후 firstCard, secondCard 초기화
             firstCard = null;
             secondCard = null;
+        }
+    }
+
+    void BallSpawner()
+    {
+        cardList = new List<GameObject>();
+        int[] cardNumbers = ShuffleCardsFront();
+        int[] cardBacks = ShuffleCardsBack();
+        int Scale = 0;
+
+        while (true)
+        {
+            if (Scale == 32)//level :: TODO)
+                break;
+
+            float x = Random.Range(-1.7f, 1.7f);
+            float y = Random.Range(-3.7f, 2.3f);
+
+            GameObject newCard = Instantiate(cardPrefab);
+            Card card = newCard.GetComponent<Card>();
+
+            newCard.transform.parent = cardBoard.transform;
+            newCard.transform.position = new Vector3(x, y, 0);
+
+            card.Setting(cardNumbers[Scale % 16], cardBacks[Scale % 16]);
+            cardList.Add(newCard);
+
+            Scale++;
+        
         }
     }
 }

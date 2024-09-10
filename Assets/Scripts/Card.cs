@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
@@ -11,22 +12,27 @@ public class Card : MonoBehaviour
     public GameObject back;  // 카드 뒷면
 
     public Animator Anim; // 애니메이션 변수
-
     public AudioClip clip;
 
     public SpriteRenderer frontImage; // 팀원 사진
     public SpriteRenderer backImage;  // 뒷면
 
+    
+    //====================================
+    Rigidbody2D rb = null;
+    float Tick = 0;
+    float PhysicsTick;
+    //=======================feature_lms==
 
     void Start()
     {
+        InitVelocity(1.5f);//아규먼츠로 Float값을 입력하면 그 시간만큼 물리를 적용합니다.
     }
 
-
-    void Update()
+    private void FixedUpdate()
     {
-
-    }
+        ZeroVelocity();
+    }//물리처리.
 
     public void Setting(int frontNumber, int backNumber)
 
@@ -81,5 +87,27 @@ public class Card : MonoBehaviour
     void DestroyCardInvoke()
     {
         Destroy(gameObject);
+    }
+
+    //============================orgin/feature_lms=======
+    void InitVelocity(float val)
+    {
+        rb = GetComponent<Rigidbody2D>();
+
+        float PosX = Random.Range(-1f, 1f);
+        float PosY = Random.Range(-1f, 1f);
+        rb.AddForce(new Vector2(PosX, PosY), ForceMode2D.Impulse);
+        PhysicsTick = val; // 각 볼 객체의 물리 적용 시간을 수정합니다.
+    }
+    void ZeroVelocity()
+    {
+        Tick += Time.deltaTime;
+        if (Tick > PhysicsTick)
+        {
+            Rigidbody2D isRigid = GetComponent<Rigidbody2D>();
+            isRigid.angularVelocity = 0;
+            isRigid.velocity = Vector2.zero;
+            isRigid.isKinematic = true;
+        }
     }
 }
