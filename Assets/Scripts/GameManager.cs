@@ -27,12 +27,8 @@ public class GameManager : MonoBehaviour
     public GameObject cardBoard;
 
     [Header("선택한 카드")]
-    public Card firstCard;
-    public Card secondCard;
-
-
-    // 잔여 카드 확인 변수
-    public int cardCount = 0;
+    public GameObject firstCard;
+    public GameObject secondCard;
 
 
     // 카드 인스턴스 리스트
@@ -90,31 +86,15 @@ public class GameManager : MonoBehaviour
     /// 매칭 여부를 확인한다.
     /// </summary>
     /// <returns>firstCard 와 secondCard 의 일치 여부</returns>
-    public void Matched()
+    private bool IsCardMatched()
     {
-        if (firstCard.idx == secondCard.idx)
-        {
-            // 파괴해라
-            audioSource.PlayOneShot(clip);
-            firstCard.DestroyCard();
-            secondCard.DestroyCard();
-            cardCount -= 2;  // 잔여 카드 수량 변수인 cardCount에 2씩 뺀다.
-            if (cardCount == 0)  // 남은 카드가 0이 될 때
-            {
-                Time.timeScale = 0.0f;  // 시간을 멈춘다.
-                endTxt.SetActive(true); // endTxT 게임 오브젝트가 활성화 된다.
-            }
-        }
-        else
-        {
-            // 닫아라
-            firstCard.CloseCard();
-            secondCard.CloseCard();
-        }
+        string firstCardName = firstCard.transform.Find("Front").GetComponent<SpriteRenderer>().sprite.name;
+        string secondCardName = secondCard.transform.Find("Front").GetComponent<SpriteRenderer>().sprite.name;
 
-        firstCard = null; // 함수 실행 후 변수 값을 비워준다.
-        secondCard = null;
+        if (string.IsNullOrWhiteSpace(firstCardName) && string.IsNullOrWhiteSpace(secondCardName))
+            return false;
 
+        return firstCardName == secondCardName;
     }
 
     /// <summary>
