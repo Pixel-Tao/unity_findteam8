@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
 
     // 카드 인스턴스 리스트
-    private List<GameObject> cardList;
+    private List<Card> cardList;
 
     // 흘러가는 시간
     private float time;
@@ -105,7 +105,8 @@ public class GameManager : MonoBehaviour
         // 게임 시작 사운드
         SoundManager.inst.BSound(AudioType.BGM1);
         time = 0.0f;
-        
+        cardList = cardBoard.GetComponent<Board>().PlaceCardsRandomly();
+
 
         Time.timeScale = 1.0f;
     }
@@ -168,8 +169,8 @@ public class GameManager : MonoBehaviour
                 SoundManager.inst.ESound(AudioType.Ball01);
 
                 // 일치하는 카드 제거
-                cardList.Remove(firstCard);
-                cardList.Remove(secondCard);
+                cardList.Remove(firstCard.GetComponent<Card>());
+                cardList.Remove(secondCard.GetComponent<Card>());
                 firstCard.GetComponent<Card>().DestroyCard();
                 secondCard.GetComponent<Card>().DestroyCard();
 

@@ -15,12 +15,14 @@ public class Board : MonoBehaviour
     void Start()
     {
         
-        PlaceCardsRandomly();
+        //PlaceCardsRandomly();
 
     }
 
-    public void PlaceCardsRandomly()
+    public List<Card> PlaceCardsRandomly()
     {
+        List<Card> cards = new List<Card>();
+        
         int[] frontArr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
         frontArr = frontArr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
 
@@ -32,15 +34,22 @@ public class Board : MonoBehaviour
         {
             GameObject go = Instantiate(card, this.transform);
 
-            float x = (i % 4) * 1.4f - 2.1f;
-            float y = (i / 4) * 1.4f - 2.0f;
+            float x = (i % 4) * 1.1f - 1.7f;
+            float y = (i / 4) * 1.3f - 2.0f;
 
             go.transform.position = new Vector2(x, y);
 
             int frontImage = frontArr[i];
             int backImage = backArr[i];
 
-            go.GetComponent<Card>().Setting(frontImage, backImage);
+            float randomAngle = Random.Range(0f, 360f); // 0도에서 360도 사이의 랜덤 각도
+            go.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, randomAngle);
+
+            Card item = go.GetComponent<Card>();
+            item.Setting(frontImage, backImage);
+            cards.Add(item);
         }
+
+        return cards;
     }
 }
