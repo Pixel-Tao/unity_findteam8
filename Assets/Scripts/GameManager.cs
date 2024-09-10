@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     [Header("제한시간 텍스트")]
     public Text timeText;
 
+    [Header("게임 클리어, 게임 오버 팝업")]
+    public GameObject gameClear;
+    public GameObject gameOver;
+
     [Header("카드 프리팹")]
     public GameObject cardPrefab;
 
@@ -26,11 +30,14 @@ public class GameManager : MonoBehaviour
     public GameObject firstCard;
     public GameObject secondCard;
 
+
     // 카드 인스턴스 리스트
     private List<GameObject> cardList;
 
     // 흘러가는 시간
     private float time;
+    [Header("제한시간")]
+    public float endTime = 30.0f;
 
     private void Awake()
     {
@@ -48,7 +55,7 @@ public class GameManager : MonoBehaviour
         if (timeText == null) return;
         timeText.text = time.ToString("F2");
 
-        if (time >= 30.0f)
+        if (time >= endTime)
         {
             GameOver();
         }
@@ -58,13 +65,22 @@ public class GameManager : MonoBehaviour
     /// 카드를 섞는다.
     /// </summary>
     /// <returns>섞은 카드 번호 배열</returns>
-    private int[] SuffleCards()
+    private int[] ShuffleCardsFront()
     {
         // 카드 섞기
         int[] cards = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
 
         return cards.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
     }
+
+    private int[] ShuffleCardsBack()
+    {
+        // 카드 섞기
+        int[] cards = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+
+        return cards.OrderBy(item => Random.Range(0f, 15f)).ToArray();
+    }
+
 
     /// <summary>
     /// 매칭 여부를 확인한다.
@@ -86,25 +102,24 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameStart()
     {
-        return;
+        // 게임 시작 사운드
+        SoundManager.inst.BSound(AudioType.BGM1);
         time = 0.0f;
         cardList = new List<GameObject>();
-        int[] cardNumbers = SuffleCards();
+        int[] cardNumbers = ShuffleCardsFront();
+        int[] cardBacks = ShuffleCardsBack();
 
         for (int i = 0; i < cardNumbers.Length; i++)
         {
             GameObject newCard = Instantiate(cardPrefab);
+            Card card = newCard.GetComponent<Card>();
             newCard.transform.parent = cardBoard.transform;
 
             float x = (i / 4) * 1.1f - 1.65f;
             float y = (i % 4) * 1.1f - 2.4f;
             newCard.transform.position = new Vector3(x, y, 0);
 
-            string cardName = "ball" + cardNumbers[i].ToString();
-            GameObject front = newCard.transform.Find("Front").gameObject;
-
-            SpriteRenderer spriteRenderer = front.GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = Resources.Load<Sprite>(cardName);
+            card.Setting(cardNumbers[i], cardBacks[i]);
 
             cardList.Add(newCard);
         }
@@ -118,9 +133,10 @@ public class GameManager : MonoBehaviour
     public void GameClear()
     {
         // 성공 사운드
-        // AudioManager.Instance.PlaySound("gameclear");
+        SoundManager.inst.ESound(AudioType.Win);
 
         // 텍스트 변경 or 게임 클리어 팝업
+        gameClear.SetActive(true);
 
         // 게임을 멈춤
         Time.timeScale = 0.0f;
@@ -132,9 +148,14 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         // 성공 사운드
-        // AudioManager.Instance.PlaySound("gameover");
+        SoundManager.inst.ESound(AudioType.Defeat);
+
+        // 자식 object 삭제
+        for (int i = 0; i < cardBoard.transform.childCount; i++)
+            Destroy(cardBoard.transform.GetChild(i).gameObject);
 
         // 텍스트 변경 or 게임 오버 팝업
+        gameOver.SetActive(true);
 
 
         // 게임을 멈춤
@@ -161,13 +182,13 @@ public class GameManager : MonoBehaviour
             if (IsCardMatched())
             {
                 // 카드 뒤집는 사운드
-                // AudioManager.Instance.PlaySound("flip");
+                SoundManager.inst.ESound(AudioType.Ball01);
 
                 // 일치하는 카드 제거
                 cardList.Remove(firstCard);
                 cardList.Remove(secondCard);
-                //firstCard.GetComponent<Card>().DestroyCard();
-                //secondCard.GetComponent<Card>().DestroyCard();
+                firstCard.GetComponent<Card>().DestroyCard();
+                secondCard.GetComponent<Card>().DestroyCard();
 
                 int cardsLeft = cardList.Count;
 
@@ -180,8 +201,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 // 카드 원래대로 뒤집기
-                //firstCard.GetComponent<Card>().CloseCard();
-                //secondCard.GetComponent<Card>().CloseCard();
+                firstCard.GetComponent<Card>().CloseCard();
+                secondCard.GetComponent<Card>().CloseCard();
             }
 
             // 매칭여부 확인 후 firstCard, secondCard 초기화

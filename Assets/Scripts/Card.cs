@@ -12,7 +12,6 @@ public class Card : MonoBehaviour
 
     public Animator Anim; // 애니메이션 변수
 
-    AudioSource audioSource; // 오디오 소스 변수 
     public AudioClip clip;
 
     public SpriteRenderer frontImage; // 팀원 사진
@@ -21,7 +20,6 @@ public class Card : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); // 오디오소스 컴포넌트 실행
     }
 
 
@@ -48,14 +46,33 @@ public class Card : MonoBehaviour
 
     public void OpenCard()
     {
-        audioSource.PlayOneShot(clip); // 오디오 클립이 한 번 재생
+        SoundManager.inst.ESound(AudioType.Ball01); // 오디오 클립이 한 번 재생
         Anim.SetBool("isOpen", true);
         front.SetActive(true);
         back.SetActive(false);
 
-
-
+        GameManager.Instance.SelectCard(gameObject);
     }
 
+    public void CloseCard()
+    {
+        Invoke("CloseCardInvoke", 0.5f);
+    }
 
+    void CloseCardInvoke()
+    {
+        Anim.SetBool("isOpen", false);
+        front.SetActive(false);
+        back.SetActive(true);
+    }
+
+    public void DestroyCard()
+    {
+        Invoke("DestroyCardInvoke", 0.5f);
+    }
+
+    void DestroyCardInvoke()
+    {
+        Destroy(gameObject);
+    }
 }
