@@ -41,7 +41,6 @@ public class Card : MonoBehaviour
     }//물리처리.
 
     public void Setting(int frontNumber, int backNumber)
-
     {
         idx = frontNumber;
         idx2 = backNumber;

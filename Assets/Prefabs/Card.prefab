@@ -83,7 +83,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!331 &3247076782323355480
@@ -321,7 +321,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!331 &6309453349591081496
@@ -522,7 +522,6 @@ GameObject:
   - component: {fileID: 1456588236337674330}
   - component: {fileID: 897519265329897410}
   - component: {fileID: 7027975559328888113}
-  - component: {fileID: 507717191364944381}
   - component: {fileID: 4406327500608496991}
   - component: {fileID: 5233584530126760366}
   m_Layer: 0

@@ -333,9 +333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2170ac754003d574ea794d121d4ed3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BGM: {fileID: 8300000, guid: 20017e082378c464ebd1a4f8b5ca7f13, type: 3}
+  _BGM: {fileID: 8300000, guid: 5e0e2d64ff0af2a4c8fba8b3f5d17007, type: 3}
   _BGM0: {fileID: 0}
-  _BGM1: {fileID: 0}
+  _BGM1: {fileID: 8300000, guid: 20017e082378c464ebd1a4f8b5ca7f13, type: 3}
   _BGM2: {fileID: 0}
   _Click: {fileID: 8300000, guid: 3c56cc5b8bf1ec54a85b1b5259e28252, type: 3}
   _Ball01: {fileID: 8300000, guid: b3bb9042f31d7fc48bab64698ae97829, type: 3}
@@ -1246,8 +1246,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2147061568279318075}
-        m_TargetAssemblyTypeName: StartBtn, Assembly-CSharp
+      - m_Target: {fileID: 1680808265}
+        m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
         m_MethodName: retry
         m_Mode: 1
         m_Arguments:

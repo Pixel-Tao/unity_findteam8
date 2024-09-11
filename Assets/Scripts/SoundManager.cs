@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum AudioType
@@ -23,30 +24,30 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager inst { get; private set; }
     AudioSource _sound;
-    
-    [Header ("ListofFiles")]
-    List<AudioClip> _clips          = new List<AudioClip>();
+
+    [Header("ListofFiles")]
+    List<AudioClip> _clips = new List<AudioClip>();
 
     [Header("BackGorundMusic")]
-    public AudioClip _BGM           = null;
-    public AudioClip _BGM0          = null;
-    public AudioClip _BGM1          = null;
-    public AudioClip _BGM2          = null;
+    public AudioClip _BGM = null;
+    public AudioClip _BGM0 = null;
+    public AudioClip _BGM1 = null;
+    public AudioClip _BGM2 = null;
 
     [Header("SoundFile")]
-    public AudioClip _Click         = null;
-    public AudioClip _Ball01        = null;
-    public AudioClip _Ball02        = null;
-    public AudioClip _Ball03        = null;
-    public AudioClip _Win           = null;
-    public AudioClip _Defeat        = null;
-    public AudioClip _Dodge         = null;
+    public AudioClip _Click = null;
+    public AudioClip _Ball01 = null;
+    public AudioClip _Ball02 = null;
+    public AudioClip _Ball03 = null;
+    public AudioClip _Win = null;
+    public AudioClip _Defeat = null;
+    public AudioClip _Dodge = null;
 
 
     private void Awake()
     {
         inst = this;
-        
+
         _sound = GetComponent<AudioSource>();
         _clips = new List<AudioClip>(new AudioClip[(int)AudioType.end]);
         Init();
@@ -54,21 +55,21 @@ public class SoundManager : MonoBehaviour
     }
     void Init()
     {
-        _clips[(int)AudioType.Click]  = _Click;
+        _clips[(int)AudioType.Click] = _Click;
         _clips[(int)AudioType.Ball01] = _Ball01;
         _clips[(int)AudioType.Ball02] = _Ball02;
         _clips[(int)AudioType.Ball03] = _Ball03;
-        _clips[(int)AudioType.Win]    = _Win;
+        _clips[(int)AudioType.Win] = _Win;
         _clips[(int)AudioType.Defeat] = _Defeat;
-        _clips[(int)AudioType.Dodge]  = _Dodge;
+        _clips[(int)AudioType.Dodge] = _Dodge;
 
-        _clips[(int)AudioType.BGM]  = _BGM;
+        _clips[(int)AudioType.BGM] = _BGM;
         _clips[(int)AudioType.BGM0] = _BGM0;
         _clips[(int)AudioType.BGM1] = _BGM1;
         _clips[(int)AudioType.BGM2] = _BGM2;
 
     }
-    
+
     /// <summary>
     /// Choose the Backgorund Music and You can Change BGM with AudioType Parameter.
     /// </summary>
@@ -79,7 +80,13 @@ public class SoundManager : MonoBehaviour
             _sound.Stop();
 
         _sound.clip = _clips[(int)type];
+        _sound.volume = 0.3f;
         _sound.Play();
+    }
+
+    public void Stop()
+    {
+        _sound.clip = null;
     }
 
     /// <summary>
@@ -93,7 +100,7 @@ public class SoundManager : MonoBehaviour
             Debug.Log("ESound File Void");
             return;
         }
-        
+
         _sound.PlayOneShot(_clips[(int)type]);
     }
 

@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     //Add by orgin/feature_lms 
     public Board Board;
+    public SpawningPool spawningPool;
 
     // 카드 인스턴스 리스트
     private List<Card> cardList;
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         // 게임 시작 사운드
-        //SoundManager.inst.BSound(AudioType.BGM);
+        SoundManager.inst.BSound(AudioType.BGM);
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
         Board board = cardBoard.GetComponent<Board>();
@@ -121,6 +122,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameClear()
     {
+        SoundManager.inst.Stop();
         // 성공 사운드
         SoundManager.inst.ESound(AudioType.Win);
 
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        SoundManager.inst.Stop();
         // 성공 사운드
         SoundManager.inst.ESound(AudioType.Defeat);
 
@@ -157,9 +160,13 @@ public class GameManager : MonoBehaviour
     /// <param name="cardObj">선택한 카드 GameObject</param>
     public void SelectCard(GameObject cardObj)
     {
+        Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+        Input.mousePosition.y, -Camera.main.transform.position.z));
         // 첫번째 카드가 들어오면 firstCard 가 null 일때 GameObject 를 넣어주고 아무런 행위를 하지않고 실행 종료
         if (firstCard == null)
         {
+            ShowParticle(ParticleEffectType.Hit, point);
+
             firstCard = cardObj;
             SoundManager.inst.ESound(AudioType.Ball01); // 오디오 클립이 한 번 재생
             return;
@@ -173,6 +180,8 @@ public class GameManager : MonoBehaviour
             {
                 // 카드 뒤집는 사운드
                 SoundManager.inst.ESound(AudioType.Ball01);
+                ShowParticle(ParticleEffectType.Nice, firstCard.transform.position);
+                ShowParticle(ParticleEffectType.Nice, secondCard.transform.position);
 
                 // 일치하는 카드 제거
                 cardList.Remove(firstCard.GetComponent<Card>());
@@ -185,13 +194,14 @@ public class GameManager : MonoBehaviour
                 // cardList에서 남은 카드가 없을 경우 게임 클리어
                 if (cardsLeft == 0)
                 {
-                    Invoke("GameClear", 0.5f);
+                    Invoke("GameClear", 1f);
                 }
             }
             else
             {
                 // 카드 뒤집기 실패 사운드
                 SoundManager.inst.ESound(AudioType.Dodge);
+                ShowParticle(ParticleEffectType.Miss, point);
 
                 // 카드 원래대로 뒤집기
                 firstCard.GetComponent<Card>().CloseCard();
@@ -202,5 +212,15 @@ public class GameManager : MonoBehaviour
             firstCard = null;
             secondCard = null;
         }
+    }
+
+    public void ShowParticle(ParticleEffectType type, Vector3 pos)
+    {
+        spawningPool.Spawn(type.ToString(), pos);
+    }
+
+    public void HideParticle(GameObject go)
+    {
+        spawningPool.Despawn(go);
     }
 }
