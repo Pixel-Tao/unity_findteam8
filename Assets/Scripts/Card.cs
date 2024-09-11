@@ -26,7 +26,7 @@ public class Card : MonoBehaviour
 
     void Start()
     {
-        InitVelocity(1.5f);//아규먼츠로 Float값을 입력하면 그 시간만큼 물리를 적용합니다.
+        InitVelocity(1.5f, 1.5f);//아규먼츠로 Float값을 입력하면 그 시간만큼 물리를 적용합니다.
     }
 
     private void FixedUpdate()
@@ -90,13 +90,13 @@ public class Card : MonoBehaviour
     }
 
     //============================orgin/feature_lms=======
-    void InitVelocity(float val)
+    void InitVelocity(float val, float F = 1)
     {
         rb = GetComponent<Rigidbody2D>();
-
+        float force = F;
         float PosX = Random.Range(-1f, 1f);
         float PosY = Random.Range(-1f, 1f);
-        rb.AddForce(new Vector2(PosX, PosY), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(PosX, PosY) * force, ForceMode2D.Impulse);
         PhysicsTick = val; // 각 볼 객체의 물리 적용 시간을 수정합니다.
     }
     void ZeroVelocity()

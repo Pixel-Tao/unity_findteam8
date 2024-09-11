@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
 
         while (true)
         {
-            if (Scale == 32)//level :: TODO)
+            if (Scale == 16)//level :: TODO)
                 break;
 
             float x = Random.Range(-1.7f, 1.7f);
