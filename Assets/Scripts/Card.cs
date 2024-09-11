@@ -92,10 +92,13 @@ public class Card : MonoBehaviour
 
     //============================orgin/feature_lms=======
     //아규먼츠로 Float값을 입력하면 그 시간만큼 물리를 적용합니다.
-    public void InitVelocity(float val)
+    public void InitVelocity(float val, bool smooth = false)
     {
         rb = GetComponent<Rigidbody2D>();
         rb.simulated = true;
+
+        if (smooth)
+            rb.drag = 0.8f;
 
         float PosX = Random.Range(-1f, 1f);
         float PosY = Random.Range(-1f, 1f);

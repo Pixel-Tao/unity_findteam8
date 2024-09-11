@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         if (timeText == null) return;
         timeText.text = time.ToString("F2");
 
-        if (time >= endTime)
+        if (false)//(time >= endTime)
         {
             GameOver();
         }
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
         Board board = cardBoard.GetComponent<Board>();
-        GameMode = GameModeType.Normal;
+        GameMode = GameModeType.Hard;
         // 일반 배치
         switch (GameMode)
         {
