@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
     public GameObject card;
-
+    public GameObject troll;
+    public Text timeTxt;
+    public Animator Anim;
+    
     void Start()
     {
     }
@@ -92,8 +98,82 @@ public class Board : MonoBehaviour
     public List<Card> CrazyModeShuffle()
     {
         List<Card> cardList = new List<Card>();
-        // TODO : Crazy 난이 구현
+        int[] cardNumbers = ShuffleCardsFront();
+        int[] cardBacks = ShuffleCardsBack();
+        int Scale = 0;
+
+        while (true)
+        {
+            if (Scale == 16)//level :: TODO)
+                break;
+
+            float x = Random.Range(-1.7f, 1.7f);
+            float y = Random.Range(-3.7f, 2.3f);
+
+            GameObject newCard = Instantiate(card);
+            Card item = newCard.GetComponent<Card>();
+
+            newCard.transform.parent = this.transform;
+            newCard.transform.position = new Vector3(x, y, 0);
+
+            item.InitVelocity(1.5f);
+            item.Setting(cardNumbers[Scale % 16], cardBacks[Scale % 16]);
+            cardList.Add(newCard.GetComponent<Card>());
+            Scale++;
+        }
+
+        int[] ShuffleCardsBack()
+        {
+            // 카드 섞기
+            int[] cards = {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8};
+            return cards.OrderBy(x => Random.Range(0f, 15f)).ToArray();
+        }
+
+        timeTxt.color = Color.red;
+        
 
         return cardList;
     }
+
+    public List<Card> HiddenModeShuffle()
+    {
+        List<Card> cardList = new List<Card>();
+        int[] cardNumbers = ShuffleCardsFront();
+        int[] cardBacks = ShuffleCardsBack();
+        int Scale = 0;
+
+        while (true)
+        {
+            if (Scale == 16)//level :: TODO)
+                break;
+
+            float x = Random.Range(-1.7f, 1.7f);
+            float y = Random.Range(-3.7f, 2.3f);
+
+            GameObject newCard = Instantiate(card);
+            Card item = newCard.GetComponent<Card>();
+
+            newCard.transform.parent = this.transform;
+            newCard.transform.position = new Vector3(x, y, 0);
+
+            item.InitVelocity(1.5f);
+            item.Setting(cardNumbers[Scale % 16], cardBacks[Scale % 16]);
+            cardList.Add(newCard.GetComponent<Card>());
+            Scale++;
+        }
+
+        int[] ShuffleCardsBack()
+        {
+            // 카드 섞기
+            int[] cards = { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8 };
+            return cards.OrderBy(x => Random.Range(0f, 15f)).ToArray();
+        }
+
+        timeTxt.color = Color.red;
+        troll.SetActive(true);
+
+        return cardList;
+    }
+
+
 }

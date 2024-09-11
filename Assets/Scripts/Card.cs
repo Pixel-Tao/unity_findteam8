@@ -36,7 +36,11 @@ public class Card : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.GameMode > GameModeType.Normal)
+        if (GameManager.Instance.GameMode == GameModeType.Normal)
+            ZeroVelocity();
+        if (GameManager.Instance.GameMode == GameModeType.Hard)
+            ZeroVelocity();
+        if (GameManager.Instance.GameMode == GameModeType.Crazy)
             ZeroVelocity();
     }//물리처리.
 

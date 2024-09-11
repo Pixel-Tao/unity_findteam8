@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,8 @@ public enum GameModeType
     None,
     Normal,
     Hard,
-    Crazy
+    Crazy,
+    Hidden
 }
 
 public class GameManager : MonoBehaviour
@@ -48,6 +50,13 @@ public class GameManager : MonoBehaviour
     private float time;
     [Header("제한시간")]
     public float endTime = 30.0f;
+
+    string stage;
+    public void selstNo()
+    {
+       
+    }
+    
 
     public GameModeType GameMode { get; private set; } = GameModeType.None;
 
@@ -98,7 +107,7 @@ public class GameManager : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
         Board board = cardBoard.GetComponent<Board>();
-        GameMode = GameModeType.Normal;
+        GameMode = GameModeType.Hidden;
         // 일반 배치
         switch (GameMode)
         {
@@ -110,6 +119,10 @@ public class GameManager : MonoBehaviour
                 break;
             case GameModeType.Crazy:
                 cardList = board.CrazyModeShuffle();
+                break;
+            case GameModeType.Hidden:
+                cardList = board.HiddenModeShuffle();
+                endTime = 20.0f;
                 break;
         }
         // BallSpawner();
