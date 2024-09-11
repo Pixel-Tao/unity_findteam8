@@ -6,6 +6,13 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameModeType
+{
+    None,
+    Normal,
+    Hard,
+    Crazy
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -30,17 +37,19 @@ public class GameManager : MonoBehaviour
     [Header("선택한 카드")]
     public GameObject firstCard;
     public GameObject secondCard;
-    
+
     //Add by orgin/feature_lms 
-    public Board Board;  
+    public Board Board;
 
     // 카드 인스턴스 리스트
-    private List<GameObject> cardList;
+    private List<Card> cardList;
 
     // 흘러가는 시간
     private float time;
     [Header("제한시간")]
     public float endTime = 30.0f;
+
+    public GameModeType GameMode { get; private set; } = GameModeType.None;
 
     private void Awake()
     {
@@ -58,29 +67,11 @@ public class GameManager : MonoBehaviour
         if (timeText == null) return;
         timeText.text = time.ToString("F2");
 
-        while(false)//if (time >= endTime)
+        if (time >= endTime)
         {
             GameOver();
         }
     }
-
-    /// <summary>
-    /// 카드를 섞는다.
-    /// </summary>
-    /// <returns>섞은 카드 번호 배열</returns>
-    private int[] ShuffleCardsFront()
-    {
-        // 카드 섞기
-        int[] cards = Board.GetCardArray()[0].ToArray<int>();
-        return cards;
-    }
-    private int[] ShuffleCardsBack()
-    {
-        // 카드 섞기
-        int[] cards = Board.GetCardArray()[1].ToArray<int>();
-        return cards;
-    }
-
 
     /// <summary>
     /// 매칭 여부를 확인한다.
@@ -106,7 +97,22 @@ public class GameManager : MonoBehaviour
         //SoundManager.inst.BSound(AudioType.BGM);
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
-        BallSpawner();
+        Board board = cardBoard.GetComponent<Board>();
+        GameMode = GameModeType.Normal;
+        // 일반 배치
+        switch (GameMode)
+        {
+            case GameModeType.Normal:
+                cardList = board.NormalModeShuffle();
+                break;
+            case GameModeType.Hard:
+                cardList = board.HardModeShuffle();
+                break;
+            case GameModeType.Crazy:
+                cardList = board.CrazyModeShuffle();
+                break;
+        }
+        // BallSpawner();
         Time.timeScale = 1.0f;
     }
 
@@ -155,6 +161,7 @@ public class GameManager : MonoBehaviour
         if (firstCard == null)
         {
             firstCard = cardObj;
+            SoundManager.inst.ESound(AudioType.Ball01); // 오디오 클립이 한 번 재생
             return;
         }
         // 두번째 카드 들어오면 secondCard 가 null 일때 GameObject 를 넣어주고 매칭 여부를 확인한다.
@@ -168,8 +175,8 @@ public class GameManager : MonoBehaviour
                 SoundManager.inst.ESound(AudioType.Ball01);
 
                 // 일치하는 카드 제거
-                cardList.Remove(firstCard);
-                cardList.Remove(secondCard);
+                cardList.Remove(firstCard.GetComponent<Card>());
+                cardList.Remove(secondCard.GetComponent<Card>());
                 firstCard.GetComponent<Card>().DestroyCard();
                 secondCard.GetComponent<Card>().DestroyCard();
 
@@ -178,11 +185,14 @@ public class GameManager : MonoBehaviour
                 // cardList에서 남은 카드가 없을 경우 게임 클리어
                 if (cardsLeft == 0)
                 {
-                    GameClear();
+                    Invoke("GameClear", 0.5f);
                 }
             }
             else
             {
+                // 카드 뒤집기 실패 사운드
+                SoundManager.inst.ESound(AudioType.Dodge);
+
                 // 카드 원래대로 뒤집기
                 firstCard.GetComponent<Card>().CloseCard();
                 secondCard.GetComponent<Card>().CloseCard();
@@ -191,35 +201,6 @@ public class GameManager : MonoBehaviour
             // 매칭여부 확인 후 firstCard, secondCard 초기화
             firstCard = null;
             secondCard = null;
-        }
-    }
-
-    void BallSpawner()
-    {
-        cardList = new List<GameObject>();
-        int[] cardNumbers = ShuffleCardsFront();
-        int[] cardBacks = ShuffleCardsBack();
-        int Scale = 0;
-
-        while (true)
-        {
-            if (Scale == 16)//level :: TODO)
-                break;
-
-            float x = Random.Range(-1.7f, 1.7f);
-            float y = Random.Range(-3.7f, 2.3f);
-
-            GameObject newCard = Instantiate(cardPrefab);
-            Card card = newCard.GetComponent<Card>();
-
-            newCard.transform.parent = cardBoard.transform;
-            newCard.transform.position = new Vector3(x, y, 0);
-
-            card.Setting(cardNumbers[Scale % 16], cardBacks[Scale % 16]);
-            cardList.Add(newCard);
-
-            Scale++;
-        
         }
     }
 }

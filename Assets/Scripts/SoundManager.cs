@@ -11,6 +11,7 @@ public enum AudioType
     Ball03,
     Win,
     Defeat,
+    Dodge,
 
     BGM,
     BGM0,
@@ -39,12 +40,12 @@ public class SoundManager : MonoBehaviour
     public AudioClip _Ball03        = null;
     public AudioClip _Win           = null;
     public AudioClip _Defeat        = null;
+    public AudioClip _Dodge         = null;
 
 
     private void Awake()
     {
         inst = this;
-        DontDestroyOnLoad(this);
         
         _sound = GetComponent<AudioSource>();
         _clips = new List<AudioClip>(new AudioClip[(int)AudioType.end]);
@@ -59,6 +60,7 @@ public class SoundManager : MonoBehaviour
         _clips[(int)AudioType.Ball03] = _Ball03;
         _clips[(int)AudioType.Win]    = _Win;
         _clips[(int)AudioType.Defeat] = _Defeat;
+        _clips[(int)AudioType.Dodge]  = _Dodge;
 
         _clips[(int)AudioType.BGM]  = _BGM;
         _clips[(int)AudioType.BGM0] = _BGM0;
@@ -91,6 +93,7 @@ public class SoundManager : MonoBehaviour
             Debug.Log("ESound File Void");
             return;
         }
+        
         _sound.PlayOneShot(_clips[(int)type]);
     }
 
