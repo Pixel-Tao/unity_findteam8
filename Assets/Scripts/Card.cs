@@ -99,7 +99,7 @@ public class Card : MonoBehaviour
 
         float PosX = Random.Range(-1f, 1f);
         float PosY = Random.Range(-1f, 1f);
-        rb.AddForce(new Vector2(PosX, PosY) * force, ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(PosX, PosY), ForceMode2D.Impulse);
         PhysicsTick = val; // 각 볼 객체의 물리 적용 시간을 수정합니다.
     }
 
