@@ -52,6 +52,9 @@ public class SoundManager : MonoBehaviour
         _clips = new List<AudioClip>(new AudioClip[(int)AudioType.end]);
         Init();
 
+        int setWidth    = 760; 
+        int setHeight   = 1280;
+        Screen.SetResolution(setWidth, setHeight, false);
     }
     void Init()
     {

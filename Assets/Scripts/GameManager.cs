@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         if (timeText == null) return;
         timeText.text = time.ToString("F2");
 
-        if (time >= endTime)
+        if (false)//(time >= endTime)
         {
             GameOver();
         }
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         time = 0.0f;
         isPlaying = true;
         Board board = cardBoard.GetComponent<Board>();
-        GameMode = GameModeType.Normal;
+        GameMode = GameModeType.Hard;
         // 일반 배치
         switch (GameMode)
         {

@@ -26,6 +26,8 @@ public class Board : MonoBehaviour
         // 카드 섞기
         int[] cards = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
         return cards.OrderBy(x => Random.Range(0f, 15f)).ToArray();
+
+
     }
 
     public List<Card> NormalModeShuffle()
@@ -71,7 +73,7 @@ public class Board : MonoBehaviour
                 break;
 
             float x = Random.Range(-1.7f, 1.7f);
-            float y = Random.Range(-3.7f, 2.3f);
+            float y = Random.Range(-3.7f, 3.7f);
 
             GameObject newCard = Instantiate(card);
             Card item = newCard.GetComponent<Card>();
@@ -79,7 +81,7 @@ public class Board : MonoBehaviour
             newCard.transform.parent = this.transform;
             newCard.transform.position = new Vector3(x, y, 0);
 
-            item.InitVelocity(1.5f);
+            item.InitVelocity(3f, true);
             item.Setting(cardNumbers[Scale % 16], cardBacks[Scale % 16]);
             cardList.Add(newCard.GetComponent<Card>());
 
