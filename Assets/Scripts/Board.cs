@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ public class Board : MonoBehaviour
 {
     public GameObject card;
     public GameObject troll;
+    public GameObject whiteBall;
     public Text timeTxt;
     public Animator Anim;
     public GameObject backCard;
@@ -179,5 +181,37 @@ public class Board : MonoBehaviour
         return cardList;
     }
 
+
+    public List<Card> Hidden2ModeShuffle()
+    {
+        List<Card> cards = new List<Card>();
+
+        int[] frontArr = ShuffleCardsFront();
+        int[] backArr = ShuffleCardsBack();
+
+        for (int i = 0; i < 16; i++)
+        {
+            GameObject go = Instantiate(card, this.transform);
+
+            float x = (i % 4) * 1.1f - 1.7f;
+            float y = (i / 4) * 1.3f - 2.0f;
+
+            go.transform.position = new Vector2(x, y);
+
+            int frontImage = frontArr[i];
+            int backImage = backArr[i];
+
+            float randomAngle = Random.Range(0f, 360f); // 0도에서 360도 사이의 랜덤 각도
+            go.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, randomAngle);
+
+            Card item = go.GetComponent<Card>();
+            item.Setting(frontImage, backImage);
+            cards.Add(item);
+        }
+
+        whiteBall.SetActive(true);
+
+        return cards;
+    }
 
 }

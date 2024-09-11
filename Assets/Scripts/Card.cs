@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +14,11 @@ public class Card : MonoBehaviour
     public GameObject back;  // 카드 뒷면
 
     public Animator Anim; // 애니메이션 변수
-    public AudioClip clip;
 
     public SpriteRenderer frontImage; // 팀원 사진
     public SpriteRenderer backImage;  // 뒷면
 
+    public Text cheatText;
 
     //====================================
     Rigidbody2D rb = null;
@@ -24,17 +26,33 @@ public class Card : MonoBehaviour
     float PhysicsTick;
     //=======================feature_lms==
 
+    public bool isOpen { get; private set; }
 
     void Start()
     {
-        if (GameManager.GameMode < GameModeType.Hard)
+        Rigidbody2D isRigid = GetComponent<Rigidbody2D>();
+        if (GameManager.GameMode == GameModeType.Normal)
         {
-            Rigidbody2D isRigid = GetComponent<Rigidbody2D>();
+            // 물리처리를 하지 않음
             isRigid.simulated = false;
         }
-        if (GameManager.GameMode == GameModeType.Hidden)
+        else if (GameManager.GameMode == GameModeType.Hard)
+        {
+            // 물리처리를 함.
+            isRigid.simulated = true;
+        }
+        else if (GameManager.GameMode == GameModeType.Crazy)
+        {
+            // 물리처리를 함.
+            isRigid.simulated = true;
+        }
+        else if (GameManager.GameMode == GameModeType.Hidden)
         {
             frontImage.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+        }
+        else if (GameManager.GameMode == GameModeType.Hidden)
+        {
+            isRigid.simulated = true;
         }
     }
 
@@ -54,7 +72,8 @@ public class Card : MonoBehaviour
         idx2 = backNumber;
         frontImage.sprite = Resources.Load<Sprite>($"teamPhoto{frontNumber}");
         backImage.sprite = Resources.Load<Sprite>($"ballBack{backNumber}");
-
+        cheatText.text = GameManager.DebugMode ? $"{frontNumber}" : "";
+        cheatText.raycastTarget = GameManager.GameMode != GameModeType.Hidden2;
     }
 
     public void RotateFrontFace(float angle)
@@ -64,16 +83,26 @@ public class Card : MonoBehaviour
             // 앞면만 Z축을 기준으로 회전
             backImage.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
-
     }
 
     public void OpenCard()
     {
-        Anim.SetBool("isOpen", true);
-        front.SetActive(true);
-        back.SetActive(false);
-
-        GameManager.Instance.SelectCard(gameObject);
+        isOpen = true;
+        Anim.SetBool("isOpen", isOpen);
+        front.SetActive(isOpen);
+        back.SetActive(!isOpen);
+        
+        if(GameManager.GameMode == GameModeType.Hidden2)
+        {
+            GameManager.Instance.SelectCard(gameObject, transform.position);
+        }
+        else
+        {
+            Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+            Input.mousePosition.y, 0));
+            GameManager.Instance.SelectCard(gameObject, point);
+        }
+        
     }
 
     public void CloseCard()
@@ -83,9 +112,10 @@ public class Card : MonoBehaviour
 
     void CloseCardInvoke()
     {
-        Anim.SetBool("isOpen", false);
-        front.SetActive(false);
-        back.SetActive(true);
+        isOpen = false;
+        Anim.SetBool("isOpen", isOpen);
+        front.SetActive(isOpen);
+        back.SetActive(!isOpen);
     }
 
     public void DestroyCard()

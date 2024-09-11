@@ -13,7 +13,8 @@ public enum GameModeType
     Normal,
     Hard,
     Crazy,
-    Hidden
+    Hidden,
+    Hidden2,
 }
 
 public class GameManager : MonoBehaviour
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     private bool isPlaying = false;
 
+    public static bool DebugMode { get; private set; } = false;
     public static GameModeType GameMode { get; private set; } = GameModeType.None;
 
 
@@ -113,7 +115,7 @@ public class GameManager : MonoBehaviour
         isPlaying = true;
         cursor.gameObject.SetActive(true);
         Board board = cardBoard.GetComponent<Board>();
-        //GameMode = GameModeType.Hard;
+        //GameMode = GameModeType.Hidden2;
         // 일반 배치
         switch (GameMode)
         {
@@ -131,8 +133,14 @@ public class GameManager : MonoBehaviour
                 endTime = 20.0f;
                 break;
             case GameModeType.Hidden:
+                Debug.Log("Hidden Mode");
                 cardList = board.HiddenModeShuffle();
                 endTime = 20.0f;
+                break;
+            case GameModeType.Hidden2:
+                Debug.Log("Hidden Mode2");
+                cardList = board.Hidden2ModeShuffle();
+                endTime = 60.0f;
                 break;
         }
 
@@ -143,6 +151,11 @@ public class GameManager : MonoBehaviour
     {
         GameMode = mode;
         Debug.Log("SelectedMode: " + GameMode.ToString());
+    }
+
+    public static void SetDebugMode(bool mode)
+    {
+        DebugMode = mode;
     }
 
 
@@ -194,14 +207,12 @@ public class GameManager : MonoBehaviour
     /// 선택한 카드를 저장하고 매칭 여부를 확인한다.
     /// </summary>
     /// <param name="cardObj">선택한 카드 GameObject</param>
-    public void SelectCard(GameObject cardObj)
+    public void SelectCard(GameObject cardObj, Vector3 hitPoint)
     {
-        Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-        Input.mousePosition.y, -Camera.main.transform.position.z));
         // 첫번째 카드가 들어오면 firstCard 가 null 일때 GameObject 를 넣어주고 아무런 행위를 하지않고 실행 종료
         if (firstCard == null)
         {
-            ShowParticle(ParticleEffectType.Hit, point);
+            ShowParticle(ParticleEffectType.Hit, hitPoint);
 
             firstCard = cardObj;
             SoundManager.inst.ESound(AudioType.Ball01); // 오디오 클립이 한 번 재생
@@ -237,7 +248,7 @@ public class GameManager : MonoBehaviour
             {
                 // 카드 뒤집기 실패 사운드
                 SoundManager.inst.ESound(AudioType.Dodge);
-                ShowParticle(ParticleEffectType.Miss, point);
+                ShowParticle(ParticleEffectType.Miss, hitPoint);
 
                 // 카드 원래대로 뒤집기
                 firstCard.GetComponent<Card>().CloseCard();

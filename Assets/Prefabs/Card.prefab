@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 5305032513172189698}
   - component: {fileID: 701250716447686476}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -442,19 +442,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: f92b3977e750b8847a9ebe5bb4c60857, type: 3}
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 1
+    m_MaxSize: 70
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 0
 --- !u!114 &701250716447686476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,9 +565,9 @@ MonoBehaviour:
   front: {fileID: 5604229383747074896}
   back: {fileID: 4742391617948874690}
   Anim: {fileID: 7027975559328888113}
-  clip: {fileID: 0}
   frontImage: {fileID: 375808298237857322}
   backImage: {fileID: 8835059532436707491}
+  cheatText: {fileID: 5305032513172189698}
 --- !u!95 &7027975559328888113
 Animator:
   serializedVersion: 5
@@ -650,7 +650,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d9ca6f2f770bf6643bb75b0371ffc31c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

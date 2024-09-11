@@ -27,13 +27,22 @@ public class GameScene : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1.0f;
         SoundManager.inst.ESound(AudioType.Click);
         SceneManager.LoadScene("GameScene");
     }
 
     public void SelectMode()
     {
+        Time.timeScale = 1.0f;
+        fade.SetActive(true);
+        fade.GetComponent<Animator>().SetTrigger("FadeOut");
         SoundManager.inst.ESound(AudioType.Click);
+        Invoke("MoveStartScene", 1.2f);
+    }
+
+    void MoveStartScene()
+    {
         SceneManager.LoadScene("StartScene");
     }
 

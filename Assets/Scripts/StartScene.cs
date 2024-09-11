@@ -9,39 +9,13 @@ public class StartScene : MonoBehaviour
 {
     public GameObject fade;
     public GameObject cursor;
-
-    void Start()
-    {
-        ClickNormal();
-        cursor.SetActive(true);
-    }
-
-    public void retry()
-    {
-        Time.timeScale = 1.0f;
-        SoundManager.inst.ESound(AudioType.Click);
-        ballAnimator.SetTrigger("MoveUp");
-        fade.SetActive(true);
-        fade.GetComponent<Animator>().SetTrigger("FadeOut");
-        Invoke("MoveGameScene", 1.2f);
-    }
-
-    void MoveGameScene()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
-
-
-    public void gameQuit()
-    {
-        SoundManager.inst.ESound(AudioType.Click);
-        Application.Quit();
-    }
+    public Text teamName;
 
     public GameObject NormalBtn;
     public GameObject HardBtn;
     public GameObject CrazyBtn;
     public GameObject HiddenBtn;
+    public GameObject Hidden2Btn;
 
     public GameObject MainBall;
     public GameObject MainBallHard;
@@ -49,7 +23,45 @@ public class StartScene : MonoBehaviour
 
     public Animator ballAnimator;
 
+    void Start()
+    {
+        ClickNormal();
+        FadeIn();
+        cursor.SetActive(true);
+    }
 
+    void FadeIn()
+    {
+        fade.SetActive(true);
+        fade.GetComponent<Animator>().SetTrigger("FadeIn");
+        Invoke("HideFade", 1.0f);
+    }
+    void HideFade()
+    {
+        fade.SetActive(false);
+    }
+
+    void FadeOut(string method)
+    {
+        fade.SetActive(true);
+        fade.GetComponent<Animator>().SetTrigger("FadeOut");
+        Invoke(method, 1.2f);
+    }
+
+    void MoveGameScene()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+
+    #region ButtonClickEvent
+    
+    public void retry()
+    {
+        Time.timeScale = 1.0f;
+        SoundManager.inst.ESound(AudioType.Ball01);
+        ballAnimator.SetTrigger("MoveUp");
+        FadeOut("MoveGameScene");
+    }
     public void ClickNormal()
     {
         Debug.Log("Normal");
@@ -89,10 +101,22 @@ public class StartScene : MonoBehaviour
     public void ClickHidden()
     {
         Debug.Log("Hidden");
-       
-
+        // TODO : Hidden Mode 이미지 변경?
         GameManager.SelectMode(GameModeType.Hidden);
-
     }
 
+    public void ClickHidden2()
+    {
+        Debug.Log("Hidden");
+        // TODO : Hidden Mode 이미지 변경?
+        GameManager.SelectMode(GameModeType.Hidden2);
+    }
+
+    public void DebugMode()
+    {
+        GameManager.SetDebugMode(!GameManager.DebugMode);
+        teamName.fontStyle = GameManager.DebugMode ? FontStyle.Italic : FontStyle.Bold;
+
+    }
+    #endregion
 }
