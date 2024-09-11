@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class StartScene : MonoBehaviour
 {
     public GameObject fade;
+    public GameObject cursor;
+
+    void Start()
+    {
+        cursor.SetActive(true);
+    }
 
     public void retry()
     {

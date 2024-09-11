@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     public GameObject gameClear;
     public GameObject gameOver;
 
+    [Header("커서")]
+    public GameObject cursor;
+
     [Header("카드 프리팹")]
     public GameObject cardPrefab;
 
@@ -72,7 +75,7 @@ public class GameManager : MonoBehaviour
         if (timeText == null) return;
         timeText.text = time.ToString("F2");
 
-        if (false)//(time >= endTime)
+        if(time >= endTime)
         {
             GameOver();
         }
@@ -103,6 +106,7 @@ public class GameManager : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
         isPlaying = true;
+        cursor.gameObject.SetActive(true);
         Board board = cardBoard.GetComponent<Board>();
         GameMode = GameModeType.Hard;
         // 일반 배치

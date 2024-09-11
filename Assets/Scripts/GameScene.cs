@@ -7,7 +7,7 @@ public class GameScene : MonoBehaviour
 {
     public GameObject fade;
 
-    public void Start()
+    void Start()
     {
         GameStart();
     }
