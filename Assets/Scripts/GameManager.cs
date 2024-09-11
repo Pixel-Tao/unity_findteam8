@@ -12,7 +12,8 @@ public enum GameModeType
     None,
     Normal,
     Hard,
-    Crazy
+    Crazy,
+    Hidden
 }
 
 public class GameManager : MonoBehaviour
@@ -53,6 +54,9 @@ public class GameManager : MonoBehaviour
     private float time;
     [Header("제한시간")]
     public float endTime = 30.0f;
+
+    public GameObject troll;
+    
 
     private bool isPlaying = false;
 
@@ -108,7 +112,7 @@ public class GameManager : MonoBehaviour
         isPlaying = true;
         cursor.gameObject.SetActive(true);
         Board board = cardBoard.GetComponent<Board>();
-        GameMode = GameModeType.Hard;
+        GameMode = GameModeType.Hidden;
         // 일반 배치
         switch (GameMode)
         {
@@ -120,9 +124,14 @@ public class GameManager : MonoBehaviour
                 break;
             case GameModeType.Crazy:
                 cardList = board.CrazyModeShuffle();
+                endTime = 20.0f;
+                break;
+            case GameModeType.Hidden:
+                cardList = board.HiddenModeShuffle();
+                endTime = 20.0f;
                 break;
         }
-        // BallSpawner();
+
         Time.timeScale = 1.0f;
     }
 
@@ -141,6 +150,8 @@ public class GameManager : MonoBehaviour
 
         // 게임을 멈춤
         Time.timeScale = 0.0f;
+
+        Destroy(troll);
     }
 
     /// <summary>
@@ -156,6 +167,8 @@ public class GameManager : MonoBehaviour
         // 자식 object 삭제
         for (int i = 0; i < cardBoard.transform.childCount; i++)
             Destroy(cardBoard.transform.GetChild(i).gameObject);
+
+        Destroy(troll);
 
         // 텍스트 변경 or 게임 오버 팝업
         gameOver.SetActive(true);
