@@ -5,16 +5,10 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-
     public GameObject card;
-    public Vector2 areaMin; // 배치 영역의 최소값 (왼쪽 아래)
-    public Vector2 areaMax; // 배치 영역의 최대값 (오른쪽 위)
 
     void Start()
     {
-        
-        //PlaceCardsRandomly();
-
     }
 
     /// <summary>
@@ -98,6 +92,7 @@ public class Board : MonoBehaviour
     public List<Card> CrazyModeShuffle()
     {
         List<Card> cardList = new List<Card>();
+        // TODO : Crazy 난이 구현
 
         return cardList;
     }
