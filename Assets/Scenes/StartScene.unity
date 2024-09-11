@@ -257,7 +257,7 @@ Animator:
   m_GameObject: {fileID: 175480898}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 73d5d0fa6ffc00245bb03bb23346a6cc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 282acb532999cf24e9f7bd04d73ba9c1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -330,6 +330,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1680808265}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
         m_MethodName: retry
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1680808267}
+        m_TargetAssemblyTypeName: ButtonAnimation, Assembly-CSharp
+        m_MethodName: OnBallClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -506,7 +518,7 @@ Animator:
   m_GameObject: {fileID: 397748322}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 73d5d0fa6ffc00245bb03bb23346a6cc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 282acb532999cf24e9f7bd04d73ba9c1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -579,6 +591,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1680808265}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
         m_MethodName: retry
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1680808267}
+        m_TargetAssemblyTypeName: ButtonAnimation, Assembly-CSharp
+        m_MethodName: OnBallClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1215,6 +1239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1680808266}
   - component: {fileID: 1680808265}
+  - component: {fileID: 1680808267}
   m_Layer: 0
   m_Name: StartScene
   m_TagString: Untagged
@@ -1255,6 +1280,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1680808267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680808264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6cca4052e3bcc447848de5c5ece9292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playButton: {fileID: 0}
+  animator: {fileID: 0}
+  MainBall: {fileID: 614585710901592643}
+  MainBallHard: {fileID: 397748327}
+  MainBallCrazy: {fileID: 175480903}
+  ballAnimator: {fileID: 8110636999603135625}
 --- !u!1 &1684584244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1649,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1680808265}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
         m_MethodName: retry
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1680808267}
+        m_TargetAssemblyTypeName: ButtonAnimation, Assembly-CSharp
+        m_MethodName: OnBallClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2323,7 +2378,7 @@ Animator:
   m_GameObject: {fileID: 1129725551289809977}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 73d5d0fa6ffc00245bb03bb23346a6cc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 282acb532999cf24e9f7bd04d73ba9c1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

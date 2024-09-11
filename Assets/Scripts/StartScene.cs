@@ -15,8 +15,14 @@ public class StartScene : MonoBehaviour
     public void retry()
     {
         SoundManager.inst.ESound(AudioType.Click);
+        Invoke("LoadGameScene", 0.3f);
+    }
+
+    public void LoadGameScene()
+    {
         SceneManager.LoadScene("GameScene");
     }
+
 
     public void gameQuit()
     {
@@ -42,6 +48,9 @@ public class StartScene : MonoBehaviour
         MainBallCrazy.SetActive(false);
 
         GameManager.SelectMode(GameModeType.Normal);
+       
+
+        
     }
 
     public void ClickHard()
