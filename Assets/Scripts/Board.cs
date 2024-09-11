@@ -96,4 +96,14 @@ public class Board : MonoBehaviour
 
         return cardList;
     }
+
+
+    public List<Card> HiddenModeShuffle()
+    {
+        List<Card> cardList = new List<Card>();
+        // TODO : Hidden 난이 구현
+
+        return cardList;
+    }
+
 }

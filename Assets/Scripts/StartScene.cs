@@ -14,8 +14,11 @@ public class StartScene : MonoBehaviour
     }
     public void retry()
     {
+        Time.timeScale = 1.0f;
         SoundManager.inst.ESound(AudioType.Click);
         Invoke("LoadGameScene", 0.3f);
+        ballAnimator.SetTrigger("MoveUp");
+        
     }
 
     public void LoadGameScene()
@@ -33,12 +36,14 @@ public class StartScene : MonoBehaviour
     public GameObject NormalBtn;
     public GameObject HardBtn;
     public GameObject CrazyBtn;
+    public GameObject HiddenBtn;
 
     public GameObject MainBall;
     public GameObject MainBallHard;
     public GameObject MainBallCrazy;
 
-  
+    public Animator ballAnimator;
+
 
     public void ClickNormal()
     {
@@ -49,8 +54,7 @@ public class StartScene : MonoBehaviour
 
         GameManager.SelectMode(GameModeType.Normal);
        
-
-        
+        ballAnimator = MainBall.GetComponent<Animator>();
     }
 
     public void ClickHard()
@@ -61,6 +65,8 @@ public class StartScene : MonoBehaviour
         MainBallCrazy.SetActive(false);
 
         GameManager.SelectMode(GameModeType.Hard);
+
+        ballAnimator = MainBallHard.GetComponent<Animator>();
     }
 
     public void ClickCrazy()
@@ -71,6 +77,17 @@ public class StartScene : MonoBehaviour
         MainBallCrazy.SetActive(true);
 
         GameManager.SelectMode(GameModeType.Crazy);
+
+        ballAnimator = MainBallCrazy.GetComponent<Animator>();
+    }
+
+    public void ClickHidden()
+    {
+        Debug.Log("Hidden");
+       
+
+        GameManager.SelectMode(GameModeType.Hidden);
+
     }
 
 }

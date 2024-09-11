@@ -11,7 +11,8 @@ public enum GameModeType
     None,
     Normal,
     Hard,
-    Crazy
+    Crazy,
+    Hidden
 }
 
 public class GameManager : MonoBehaviour
@@ -114,6 +115,10 @@ public class GameManager : MonoBehaviour
             case GameModeType.Crazy:
                 Debug.Log("Crazy Mode");
                 cardList = board.CrazyModeShuffle();
+                break;
+            case GameModeType.Hidden:
+                Debug.Log("Crazy Mode");
+                cardList = board.HiddenModeShuffle();
                 break;
         }
         // BallSpawner();
