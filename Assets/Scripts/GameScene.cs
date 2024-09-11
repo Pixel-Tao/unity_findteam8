@@ -10,4 +10,6 @@ public class GameScene : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Click);
         SceneManager.LoadScene("GameScene");
     }
+
+   
 }

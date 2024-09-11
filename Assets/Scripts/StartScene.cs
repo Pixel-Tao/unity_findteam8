@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class StartScene : MonoBehaviour
@@ -17,4 +18,40 @@ public class StartScene : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Click);
         Application.Quit();
     }
+
+    public GameObject NormalBtn;
+    public GameObject HardBtn;
+    public GameObject CrazyBtn;
+
+    public GameObject MainBall;
+    public GameObject MainBallHard;
+    public GameObject MainBallCrazy;
+
+    public void ClickNormal()
+    {
+        Debug.Log("Normal");
+        MainBall.SetActive(true);
+        MainBallHard.SetActive(false);
+        MainBallCrazy.SetActive(false);
+
+    }
+
+    public void ClickHard()
+    {
+        Debug.Log("Hard");
+        MainBall.SetActive(false);
+        MainBallHard.SetActive(true);
+        MainBallCrazy.SetActive(false);
+
+    }
+
+    public void ClickCrazy()
+    {
+        Debug.Log("Crazy");
+        MainBall.SetActive(false);
+        MainBallHard.SetActive(false);
+        MainBallCrazy.SetActive(true);
+
+    }
+
 }

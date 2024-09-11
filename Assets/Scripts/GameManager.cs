@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public GameModeType GameMode { get; private set; } = GameModeType.None;
 
+
     private void Awake()
     {
         Instance = this;
@@ -98,23 +99,34 @@ public class GameManager : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
         Board board = cardBoard.GetComponent<Board>();
-        GameMode = GameModeType.Normal;
+        GameMode = GameModeType.Hard;
         // 일반 배치
         switch (GameMode)
         {
             case GameModeType.Normal:
+                Debug.Log("Normal Mode");
                 cardList = board.NormalModeShuffle();
                 break;
             case GameModeType.Hard:
+                Debug.Log("Hard Mode");
                 cardList = board.HardModeShuffle();
                 break;
             case GameModeType.Crazy:
+                Debug.Log("Crazy Mode");
                 cardList = board.CrazyModeShuffle();
                 break;
         }
         // BallSpawner();
         Time.timeScale = 1.0f;
     }
+
+    public void SelectMode(GameModeType mode)
+    {
+        GameMode = mode;
+        Debug.Log("SelectedMode: " + GameMode.ToString());
+    }
+
+
 
     /// <summary>
     /// 게임을 제한시간 내에 모든 카드를 찾아냈을 경우 실행
