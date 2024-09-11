@@ -30,7 +30,7 @@ public class Card : MonoBehaviour
         if (GameManager.Instance.GameMode < GameModeType.Hard)
         {
             Rigidbody2D isRigid = GetComponent<Rigidbody2D>();
-            isRigid.simulated = true;
+            isRigid.simulated = false;
         }
     }
 

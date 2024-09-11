@@ -10,7 +10,6 @@ public class Board : MonoBehaviour
     public Vector2 areaMin; // 배치 영역의 최소값 (왼쪽 아래)
     public Vector2 areaMax; // 배치 영역의 최대값 (오른쪽 위)
 
-    List<int>[] CardsArray = new List<int>[2];
     void Start()
     {
         
@@ -25,15 +24,12 @@ public class Board : MonoBehaviour
     private int[] ShuffleCardsFront()
     {
         // 카드 섞기
-        //int[] cards = Board.GetCardArray()[0].ToArray<int>();
-
         int[] cards = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
         return cards.OrderBy(x => Random.Range(0f, 7f)).ToArray(); 
     }
     private int[] ShuffleCardsBack()
     {
         // 카드 섞기
-        //int[] cards = Board.GetCardArray()[1].ToArray<int>();
         int[] cards = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
         return cards.OrderBy(x => Random.Range(0f, 15f)).ToArray();
     }
@@ -104,10 +100,5 @@ public class Board : MonoBehaviour
         List<Card> cardList = new List<Card>();
 
         return cardList;
-    }
-
-    public List<int>[] GetCardArray()
-    {
-        return CardsArray;
     }
 }

@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
         Board board = cardBoard.GetComponent<Board>();
-        GameMode = GameModeType.Hard;
+        GameMode = GameModeType.Normal;
         // 일반 배치
         switch (GameMode)
         {
@@ -185,7 +185,7 @@ public class GameManager : MonoBehaviour
                 // cardList에서 남은 카드가 없을 경우 게임 클리어
                 if (cardsLeft == 0)
                 {
-                    GameClear();
+                    Invoke("GameClear", 0.5f);
                 }
             }
             else
