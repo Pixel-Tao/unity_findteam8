@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     [Header("제한시간")]
     public float endTime = 30.0f;
 
-    public GameModeType GameMode { get; private set; } = GameModeType.None;
+    public static GameModeType GameMode { get; private set; } = GameModeType.None;
 
 
     private void Awake()
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
         Board board = cardBoard.GetComponent<Board>();
-        GameMode = GameModeType.Hard;
+        //GameMode = GameModeType.Hard;
         // 일반 배치
         switch (GameMode)
         {
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    public void SelectMode(GameModeType mode)
+    public static void SelectMode(GameModeType mode)
     {
         GameMode = mode;
         Debug.Log("SelectedMode: " + GameMode.ToString());

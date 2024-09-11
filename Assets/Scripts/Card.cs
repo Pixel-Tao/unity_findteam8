@@ -27,7 +27,7 @@ public class Card : MonoBehaviour
 
     void Start()
     {
-        if (GameManager.Instance.GameMode < GameModeType.Hard)
+        if (GameManager.GameMode < GameModeType.Hard)
         {
             Rigidbody2D isRigid = GetComponent<Rigidbody2D>();
             isRigid.simulated = false;
@@ -36,7 +36,7 @@ public class Card : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.GameMode > GameModeType.Normal)
+        if (GameManager.GameMode > GameModeType.Normal)
             ZeroVelocity();
     }//물리처리.
 

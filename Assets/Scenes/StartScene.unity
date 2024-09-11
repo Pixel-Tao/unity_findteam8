@@ -219,7 +219,6 @@ GameObject:
   - component: {fileID: 175480905}
   - component: {fileID: 175480904}
   - component: {fileID: 175480903}
-  - component: {fileID: 175480902}
   - component: {fileID: 175480901}
   - component: {fileID: 175480900}
   m_Layer: 5
@@ -284,24 +283,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 8.5, y: -7.26}
   m_UseGraphicAlpha: 1
---- !u!114 &175480902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 175480898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99785a6e2590b48b6e40a90f0c5a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NormalBtn: {fileID: 2082673239}
-  HardBtn: {fileID: 783557614}
-  CrazyBtn: {fileID: 1684584244}
-  MainBall: {fileID: 1129725551289809977}
-  MainBallHard: {fileID: 397748322}
-  MainBallCrazy: {fileID: 175480898}
 --- !u!114 &175480903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,8 +327,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 175480902}
-        m_TargetAssemblyTypeName: StartBtn, Assembly-CSharp
+      - m_Target: {fileID: 1680808265}
+        m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
         m_MethodName: retry
         m_Mode: 1
         m_Arguments:
@@ -487,7 +468,6 @@ GameObject:
   - component: {fileID: 397748329}
   - component: {fileID: 397748328}
   - component: {fileID: 397748327}
-  - component: {fileID: 397748326}
   - component: {fileID: 397748325}
   - component: {fileID: 397748324}
   m_Layer: 5
@@ -552,24 +532,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 8.5, y: -7.26}
   m_UseGraphicAlpha: 1
---- !u!114 &397748326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397748322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99785a6e2590b48b6e40a90f0c5a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NormalBtn: {fileID: 2082673239}
-  HardBtn: {fileID: 783557614}
-  CrazyBtn: {fileID: 1684584244}
-  MainBall: {fileID: 1129725551289809977}
-  MainBallHard: {fileID: 397748322}
-  MainBallCrazy: {fileID: 175480898}
 --- !u!114 &397748327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,8 +576,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 397748326}
-        m_TargetAssemblyTypeName: StartBtn, Assembly-CSharp
+      - m_Target: {fileID: 1680808265}
+        m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
         m_MethodName: retry
         m_Mode: 1
         m_Arguments:
@@ -907,9 +869,8 @@ GameObject:
   - component: {fileID: 783557618}
   - component: {fileID: 783557617}
   - component: {fileID: 783557616}
-  - component: {fileID: 783557619}
   m_Layer: 5
-  m_Name: ModeHard
+  m_Name: HardBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1029,24 +990,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783557614}
   m_CullTransparentMesh: 1
---- !u!114 &783557619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783557614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99785a6e2590b48b6e40a90f0c5a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NormalBtn: {fileID: 0}
-  HardBtn: {fileID: 0}
-  CrazyBtn: {fileID: 0}
-  MainBall: {fileID: 2082673239}
-  MainBallHard: {fileID: 783557614}
-  MainBallCrazy: {fileID: 1684584244}
 --- !u!1 &1015533101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,12 +1234,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be99785a6e2590b48b6e40a90f0c5a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NormalBtn: {fileID: 0}
-  HardBtn: {fileID: 0}
-  CrazyBtn: {fileID: 0}
-  MainBall: {fileID: 0}
-  MainBallHard: {fileID: 0}
-  MainBallCrazy: {fileID: 0}
+  NormalBtn: {fileID: 2082673239}
+  HardBtn: {fileID: 783557614}
+  CrazyBtn: {fileID: 1684584244}
+  MainBall: {fileID: 1129725551289809977}
+  MainBallHard: {fileID: 397748322}
+  MainBallCrazy: {fileID: 175480898}
 --- !u!4 &1680808266
 Transform:
   m_ObjectHideFlags: 0
@@ -1324,9 +1267,8 @@ GameObject:
   - component: {fileID: 1684584248}
   - component: {fileID: 1684584247}
   - component: {fileID: 1684584246}
-  - component: {fileID: 1684584249}
   m_Layer: 5
-  m_Name: ModeCrazy
+  m_Name: CrazyBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1446,24 +1388,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684584244}
   m_CullTransparentMesh: 1
---- !u!114 &1684584249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684584244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99785a6e2590b48b6e40a90f0c5a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NormalBtn: {fileID: 0}
-  HardBtn: {fileID: 0}
-  CrazyBtn: {fileID: 0}
-  MainBall: {fileID: 2082673239}
-  MainBallHard: {fileID: 783557614}
-  MainBallCrazy: {fileID: 1684584244}
 --- !u!1 &2082673239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,9 +1400,8 @@ GameObject:
   - component: {fileID: 2082673244}
   - component: {fileID: 2082673243}
   - component: {fileID: 2082673242}
-  - component: {fileID: 2082673245}
   m_Layer: 5
-  m_Name: ModeNormal
+  m_Name: NormalBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1598,24 +1521,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082673239}
   m_CullTransparentMesh: 1
---- !u!114 &2082673245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2082673239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99785a6e2590b48b6e40a90f0c5a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NormalBtn: {fileID: 2082673239}
-  HardBtn: {fileID: 783557614}
-  CrazyBtn: {fileID: 1684584244}
-  MainBall: {fileID: 1129725551289809977}
-  MainBallHard: {fileID: 397748322}
-  MainBallCrazy: {fileID: 175480898}
 --- !u!114 &138062057691556586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,7 +1603,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3777872440281873523}
+      - m_Target: {fileID: 1680808265}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
         m_MethodName: retry
         m_Mode: 1
@@ -1730,7 +1635,6 @@ GameObject:
   - component: {fileID: 8110636999603135623}
   - component: {fileID: 4212246906659898288}
   - component: {fileID: 614585710901592643}
-  - component: {fileID: 3777872440281873523}
   - component: {fileID: 8110636999603135624}
   - component: {fileID: 8110636999603135625}
   m_Layer: 5
@@ -1953,24 +1857,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3777872440281873523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129725551289809977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99785a6e2590b48b6e40a90f0c5a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NormalBtn: {fileID: 2082673239}
-  HardBtn: {fileID: 783557614}
-  CrazyBtn: {fileID: 1684584244}
-  MainBall: {fileID: 1129725551289809977}
-  MainBallHard: {fileID: 397748322}
-  MainBallCrazy: {fileID: 175480898}
 --- !u!114 &3937844966289915608
 MonoBehaviour:
   m_ObjectHideFlags: 0

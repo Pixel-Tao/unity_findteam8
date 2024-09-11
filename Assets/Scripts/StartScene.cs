@@ -7,6 +7,11 @@ using UnityEngine.UI;
 
 public class StartScene : MonoBehaviour
 {
+
+    public void Start()
+    {
+        ClickNormal();
+    }
     public void retry()
     {
         SoundManager.inst.ESound(AudioType.Click);
@@ -27,6 +32,8 @@ public class StartScene : MonoBehaviour
     public GameObject MainBallHard;
     public GameObject MainBallCrazy;
 
+  
+
     public void ClickNormal()
     {
         Debug.Log("Normal");
@@ -34,6 +41,7 @@ public class StartScene : MonoBehaviour
         MainBallHard.SetActive(false);
         MainBallCrazy.SetActive(false);
 
+        GameManager.SelectMode(GameModeType.Normal);
     }
 
     public void ClickHard()
@@ -43,6 +51,7 @@ public class StartScene : MonoBehaviour
         MainBallHard.SetActive(true);
         MainBallCrazy.SetActive(false);
 
+        GameManager.SelectMode(GameModeType.Hard);
     }
 
     public void ClickCrazy()
@@ -52,6 +61,7 @@ public class StartScene : MonoBehaviour
         MainBallHard.SetActive(false);
         MainBallCrazy.SetActive(true);
 
+        GameManager.SelectMode(GameModeType.Crazy);
     }
 
 }
