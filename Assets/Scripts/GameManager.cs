@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,6 +51,8 @@ public class GameManager : MonoBehaviour
     [Header("제한시간")]
     public float endTime = 30.0f;
 
+    private bool isPlaying = false;
+
     public GameModeType GameMode { get; private set; } = GameModeType.None;
 
     private void Awake()
@@ -59,11 +62,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GameStart();
     }
 
     private void Update()
     {
+        if (!isPlaying) return;
+
         time += Time.deltaTime;
         if (timeText == null) return;
         timeText.text = time.ToString("F2");
@@ -98,6 +102,7 @@ public class GameManager : MonoBehaviour
         SoundManager.inst.BSound(AudioType.BGM);
         SoundManager.inst.ESound(AudioType.Ball03);
         time = 0.0f;
+        isPlaying = true;
         Board board = cardBoard.GetComponent<Board>();
         GameMode = GameModeType.Normal;
         // 일반 배치
@@ -122,6 +127,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameClear()
     {
+        isPlaying = false;
         SoundManager.inst.Stop();
         // 성공 사운드
         SoundManager.inst.ESound(AudioType.Win);
@@ -138,6 +144,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        isPlaying = false;
         SoundManager.inst.Stop();
         // 성공 사운드
         SoundManager.inst.ESound(AudioType.Defeat);
