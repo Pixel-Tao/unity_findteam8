@@ -51,11 +51,7 @@ public class GameManager : MonoBehaviour
     [Header("제한시간")]
     public float endTime = 30.0f;
 
-    string stage;
-    public void selstNo()
-    {
-       
-    }
+    public GameObject troll;
     
 
     public GameModeType GameMode { get; private set; } = GameModeType.None;
@@ -119,6 +115,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameModeType.Crazy:
                 cardList = board.CrazyModeShuffle();
+                endTime = 20.0f;
                 break;
             case GameModeType.Hidden:
                 cardList = board.HiddenModeShuffle();
@@ -142,6 +139,8 @@ public class GameManager : MonoBehaviour
 
         // 게임을 멈춤
         Time.timeScale = 0.0f;
+
+        Destroy(troll);
     }
 
     /// <summary>
@@ -155,6 +154,8 @@ public class GameManager : MonoBehaviour
         // 자식 object 삭제
         for (int i = 0; i < cardBoard.transform.childCount; i++)
             Destroy(cardBoard.transform.GetChild(i).gameObject);
+
+        Destroy(troll);
 
         // 텍스트 변경 or 게임 오버 팝업
         gameOver.SetActive(true);

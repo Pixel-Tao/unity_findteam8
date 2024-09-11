@@ -12,7 +12,8 @@ public class Board : MonoBehaviour
     public GameObject troll;
     public Text timeTxt;
     public Animator Anim;
-    
+    public GameObject backCard;
+
     void Start()
     {
     }
@@ -171,6 +172,7 @@ public class Board : MonoBehaviour
 
         timeTxt.color = Color.red;
         troll.SetActive(true);
+        backCard.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
 
         return cardList;
     }

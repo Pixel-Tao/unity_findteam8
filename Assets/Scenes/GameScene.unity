@@ -590,6 +590,7 @@ MonoBehaviour:
   troll: {fileID: 727832368}
   timeTxt: {fileID: 5019481918743681264}
   Anim: {fileID: 0}
+  backCard: {fileID: 727832368}
 --- !u!1 &486231997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1131,7 @@ MonoBehaviour:
   secondCard: {fileID: 0}
   Board: {fileID: 483731067}
   endTime: 30
+  troll: {fileID: 727832368}
 --- !u!4 &670632517
 Transform:
   m_ObjectHideFlags: 0

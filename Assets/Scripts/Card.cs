@@ -32,6 +32,10 @@ public class Card : MonoBehaviour
             Rigidbody2D isRigid = GetComponent<Rigidbody2D>();
             isRigid.simulated = false;
         }
+        if (GameManager.Instance.GameMode == GameModeType.Hidden)
+        {
+            frontImage.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+        }
     }
 
     private void FixedUpdate()
@@ -61,6 +65,7 @@ public class Card : MonoBehaviour
             // 앞면만 Z축을 기준으로 회전
             backImage.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
+
     }
 
     public void OpenCard()
