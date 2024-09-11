@@ -18,6 +18,8 @@ public class CursorRenderer : MonoBehaviour
 
     void Update()
     {
+        if (Input.mousePosition == null) return;
+
         this.transform.position = Input.mousePosition;
     }
 }

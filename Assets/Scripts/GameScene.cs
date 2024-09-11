@@ -30,4 +30,12 @@ public class GameScene : MonoBehaviour
         SoundManager.inst.ESound(AudioType.Click);
         SceneManager.LoadScene("GameScene");
     }
+
+    public void SelectMode()
+    {
+        SoundManager.inst.ESound(AudioType.Click);
+        SceneManager.LoadScene("StartScene");
+    }
+
+
 }

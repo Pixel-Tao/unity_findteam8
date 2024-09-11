@@ -7,7 +7,9 @@ using UnityEngine.Animations;
 public class ButtonAnimation : MonoBehaviour
 {
     public Button playButton;  
-    public Animator animator;  
+    public Animator animator;
+
+
 
     void Start()
     {
@@ -20,4 +22,5 @@ public class ButtonAnimation : MonoBehaviour
         // 버튼이 클릭될 때 트리거를 설정하여 애니메이션 재생
         animator.SetTrigger("Click");
     }
+
 }

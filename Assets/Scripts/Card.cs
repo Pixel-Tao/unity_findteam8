@@ -27,12 +27,12 @@ public class Card : MonoBehaviour
 
     void Start()
     {
-        if (GameManager.Instance.GameMode < GameModeType.Hard)
+        if (GameManager.GameMode < GameModeType.Hard)
         {
             Rigidbody2D isRigid = GetComponent<Rigidbody2D>();
             isRigid.simulated = false;
         }
-        if (GameManager.Instance.GameMode == GameModeType.Hidden)
+        if (GameManager.GameMode == GameModeType.Hidden)
         {
             frontImage.transform.localScale = new Vector3(0.7f, 0.7f, 1);
         }
@@ -40,11 +40,11 @@ public class Card : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.GameMode == GameModeType.Normal)
+        if (GameManager.GameMode == GameModeType.Normal)
             ZeroVelocity();
-        if (GameManager.Instance.GameMode == GameModeType.Hard)
+        if (GameManager.GameMode == GameModeType.Hard)
             ZeroVelocity();
-        if (GameManager.Instance.GameMode == GameModeType.Crazy)
+        if (GameManager.GameMode == GameModeType.Crazy)
             ZeroVelocity();
     }//물리처리.
 
