@@ -1843,6 +1843,7 @@ MonoBehaviour:
   MainBallHard: {fileID: 397748322}
   MainBallCrazy: {fileID: 175480898}
   ballAnimator: {fileID: 8110636999603135625}
+  particleEffect: {fileID: 0}
 --- !u!4 &1680808266
 Transform:
   m_ObjectHideFlags: 0
@@ -3178,8 +3179,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1533738529}
+  - {fileID: 532293831}
   - {fileID: 1680808266}
   - {fileID: 60668450}
   - {fileID: 1886767256915673645}
   - {fileID: 3200601028627892921}
-  - {fileID: 532293831}
