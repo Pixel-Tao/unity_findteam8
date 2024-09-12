@@ -25,14 +25,8 @@ public class NewBehaviourScript : MonoBehaviour
 
     void MoveToMosePosition() //마우스 좌표값으로 이동
     {
+        if (Vector3.Distance(transform.position, targetPos) < 0.5f)
+            return;
         transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
     }
-
-    void Start()
-    {
-        
-    }
-
-
-
 }

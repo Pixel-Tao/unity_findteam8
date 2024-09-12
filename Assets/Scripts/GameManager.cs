@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
     public float endTime = 30.0f;
 
     public GameObject troll;
-    
+
 
     private bool isPlaying = false;
 
@@ -72,20 +74,43 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SetTimer(GameMode);
     }
 
     private void Update()
     {
         if (!isPlaying) return;
 
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
         if (timeText == null) return;
-        timeText.text = time.ToString("F2");
-
-        if(time >= endTime)
+        timeText.text = MathF.Max(time, 0).ToString("F2");
+        if (time <= 0)
         {
             GameOver();
         }
+    }
+
+    private void SetTimer(GameModeType mode)
+    {
+        switch (mode)
+        {
+            case GameModeType.None:
+            case GameModeType.Normal:
+            case GameModeType.Hard:
+                endTime = 30.0f;
+                break;
+            case GameModeType.Crazy:
+            case GameModeType.Hidden:
+                timeText.color = Color.red;
+                endTime = 20.0f;
+                break;
+            case GameModeType.Hidden2:
+                timeText.color = Color.white;
+                endTime = 60.0f;
+                break;
+        }
+        time = endTime;
+        timeText.text = time.ToString("F2");
     }
 
     /// <summary>
@@ -111,7 +136,6 @@ public class GameManager : MonoBehaviour
         // 게임 시작 사운드
         SoundManager.inst.BSound(AudioType.BGM);
         SoundManager.inst.ESound(AudioType.Ball03);
-        time = 0.0f;
         isPlaying = true;
         cursor.gameObject.SetActive(true);
         Board board = cardBoard.GetComponent<Board>();
@@ -129,21 +153,17 @@ public class GameManager : MonoBehaviour
                 break;
             case GameModeType.Crazy:
                 Debug.Log("Crazy Mode");
-                cardList = board.CrazyModeShuffle();
-                endTime = 20.0f;
+                cardList = board.HellModeShuffle();
                 break;
             case GameModeType.Hidden:
                 Debug.Log("Hidden Mode");
                 cardList = board.HiddenModeShuffle();
-                endTime = 20.0f;
                 break;
             case GameModeType.Hidden2:
                 Debug.Log("Hidden Mode2");
                 cardList = board.Hidden2ModeShuffle();
-                endTime = 60.0f;
                 break;
         }
-
         Time.timeScale = 1.0f;
     }
 

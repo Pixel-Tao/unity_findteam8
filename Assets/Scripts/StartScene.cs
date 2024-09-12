@@ -23,8 +23,12 @@ public class StartScene : MonoBehaviour
 
     public Animator ballAnimator;
 
+    byte hiddenCount = 0;
+
     void Start()
     {
+        Time.timeScale = 1.0f;
+        teamName.fontStyle = GameManager.DebugMode ? FontStyle.Italic : FontStyle.Bold;
         ClickNormal();
         FadeIn();
         cursor.SetActive(true);
@@ -54,10 +58,9 @@ public class StartScene : MonoBehaviour
     }
 
     #region ButtonClickEvent
-    
+
     public void retry()
     {
-        Time.timeScale = 1.0f;
         SoundManager.inst.ESound(AudioType.Ball01);
         ballAnimator.SetTrigger("MoveUp");
         FadeOut("MoveGameScene");
@@ -70,7 +73,7 @@ public class StartScene : MonoBehaviour
         MainBallCrazy.SetActive(false);
 
         GameManager.SelectMode(GameModeType.Normal);
-       
+
         ballAnimator = MainBall.GetComponent<Animator>();
     }
 
@@ -102,14 +105,34 @@ public class StartScene : MonoBehaviour
     {
         Debug.Log("Hidden");
         // TODO : Hidden Mode 이미지 변경?
-        GameManager.SelectMode(GameModeType.Hidden);
+
+        HiddenStage();
     }
 
     public void ClickHidden2()
     {
-        Debug.Log("Hidden");
         // TODO : Hidden Mode 이미지 변경?
-        GameManager.SelectMode(GameModeType.Hidden2);
+        HiddenStage();
+    }
+
+    void HiddenStage()
+    {
+        hiddenCount++;
+        if (hiddenCount == 1)
+        {
+            Debug.Log("Hidden Stage 1");
+            GameManager.SelectMode(GameModeType.Hidden);
+        }
+        else if (hiddenCount == 2)
+        {
+            Debug.Log("Hidden Stage 2");
+            GameManager.SelectMode(GameModeType.Hidden2);
+        }
+        else
+        {
+            GameManager.SelectMode(GameModeType.Normal);
+            hiddenCount = 0;
+        }
     }
 
     public void DebugMode()
