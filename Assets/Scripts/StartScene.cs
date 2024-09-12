@@ -103,16 +103,15 @@ public class StartScene : MonoBehaviour
 
     public void ClickHidden()
     {
-        Debug.Log("Hidden");
-        // TODO : Hidden Mode 이미지 변경?
-
         HiddenStage();
+        HiddenBtn.GetComponent<Animator>().SetTrigger("Shake");
     }
 
     public void ClickHidden2()
     {
         // TODO : Hidden Mode 이미지 변경?
         HiddenStage();
+        Hidden2Btn.GetComponent<Animator>().SetTrigger("Shake");
     }
 
     void HiddenStage()
