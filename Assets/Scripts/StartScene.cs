@@ -23,10 +23,11 @@ public class StartScene : MonoBehaviour
 
     public Animator ballAnimator;
 
-    byte hiddenCount = 0;
+    public Text versionText;
 
     void Start()
     {
+        versionText.text = "v" + Application.version;
         Time.timeScale = 1.0f;
         teamName.fontStyle = GameManager.DebugMode ? FontStyle.Italic : FontStyle.Bold;
         ClickNormal();
