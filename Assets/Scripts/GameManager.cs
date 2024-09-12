@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     public float endTime = 30.0f;
 
     public GameObject troll;
+    public GameObject whiteBall;
 
 
     private bool isPlaying = false;
@@ -194,13 +195,15 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < cardBoard.transform.childCount; i++)
             Destroy(cardBoard.transform.GetChild(i).gameObject);
 
+        Destroy(troll);
+        Destroy(whiteBall);
+
         // 텍스트 변경 or 게임 클리어 팝업
         gameClear.SetActive(true);
 
         // 게임을 멈춤
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f;
 
-        Destroy(troll);
     }
 
     /// <summary>
@@ -218,13 +221,14 @@ public class GameManager : MonoBehaviour
             Destroy(cardBoard.transform.GetChild(i).gameObject);
 
         Destroy(troll);
+        Destroy(whiteBall);
 
         // 텍스트 변경 or 게임 오버 팝업
         gameOver.SetActive(true);
 
 
         // 게임을 멈춤
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f;
     }
 
     /// <summary>

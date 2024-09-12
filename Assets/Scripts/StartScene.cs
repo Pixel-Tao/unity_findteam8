@@ -103,35 +103,20 @@ public class StartScene : MonoBehaviour
 
     public void ClickHidden()
     {
-        HiddenStage();
+        Debug.Log("Hidden Stage 1");
+        GameManager.SelectMode(GameModeType.Hidden);
         HiddenBtn.GetComponent<Animator>().SetTrigger("Shake");
+        SoundManager.inst.ESound(AudioType.Click);
+        FadeOut("MoveGameScene");
     }
 
     public void ClickHidden2()
     {
-        // TODO : Hidden Mode 이미지 변경?
-        HiddenStage();
+        Debug.Log("Hidden Stage 2");
+        GameManager.SelectMode(GameModeType.Hidden2);
         Hidden2Btn.GetComponent<Animator>().SetTrigger("Shake");
-    }
-
-    void HiddenStage()
-    {
-        hiddenCount++;
-        if (hiddenCount == 1)
-        {
-            Debug.Log("Hidden Stage 1");
-            GameManager.SelectMode(GameModeType.Hidden);
-        }
-        else if (hiddenCount == 2)
-        {
-            Debug.Log("Hidden Stage 2");
-            GameManager.SelectMode(GameModeType.Hidden2);
-        }
-        else
-        {
-            GameManager.SelectMode(GameModeType.Normal);
-            hiddenCount = 0;
-        }
+        SoundManager.inst.ESound(AudioType.Click);
+        FadeOut("MoveGameScene");
     }
 
     public void DebugMode()

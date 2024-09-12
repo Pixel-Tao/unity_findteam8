@@ -16,7 +16,7 @@ public class WhiteBall : MonoBehaviour
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-            if(!hit) return;
+            if(!hit || hit.rigidbody == null) return;
             if (hit.rigidbody.gameObject.name != "WhiteBall")
                 return;
             GameManager.Instance.ShowParticle(ParticleEffectType.Hit, mousePos);

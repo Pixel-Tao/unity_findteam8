@@ -1256,6 +1256,7 @@ MonoBehaviour:
   spawningPool: {fileID: 1107235573}
   endTime: 30
   troll: {fileID: 727832368}
+  whiteBall: {fileID: 1700496177}
 --- !u!4 &670632517
 Transform:
   m_ObjectHideFlags: 0
