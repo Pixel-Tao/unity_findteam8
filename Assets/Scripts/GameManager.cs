@@ -190,6 +190,10 @@ public class GameManager : MonoBehaviour
         // 성공 사운드
         SoundManager.inst.ESound(AudioType.Win);
 
+        // 자식 object 삭제
+        for (int i = 0; i < cardBoard.transform.childCount; i++)
+            Destroy(cardBoard.transform.GetChild(i).gameObject);
+
         // 텍스트 변경 or 게임 클리어 팝업
         gameClear.SetActive(true);
 

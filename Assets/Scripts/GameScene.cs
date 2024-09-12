@@ -12,6 +12,18 @@ public class GameScene : MonoBehaviour
         GameStart();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameManager.Instance.GameOver();
+        }
+        else if(Input.GetKeyDown(KeyCode.W))
+        {
+            GameManager.Instance.GameClear();
+        }
+    }
+
     public void GameStart()
     {
         fade.SetActive(true);
