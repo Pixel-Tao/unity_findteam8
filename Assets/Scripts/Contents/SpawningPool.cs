@@ -16,16 +16,15 @@ class Pool
     /// 풀링되는 
     /// </summary>
     IObjectPool<GameObject> pool;
-
     /// <summary>
     /// 부모 Transform
     /// </summary>
     Transform root;
-   /// <summary>
-   /// 생성자
-   /// </summary>
-   /// <param name="prefab"></param>
-   /// <param name="root"></param>
+    /// <summary>
+    /// 생성자
+    /// </summary>
+    /// <param name="prefab"></param>
+    /// <param name="root"></param>
     public Pool(GameObject prefab, Transform root)
     {
         this.prefab = prefab;
@@ -85,7 +84,6 @@ class Pool
     {
         GameObject.Destroy(go);
     }
-
 }
 
 /// <summary>
@@ -113,19 +111,19 @@ public class SpawningPool : MonoBehaviour
     /// <param name="pos">생성 할 위치</param>
     public void Spawn(string key, Vector3 pos)
     {
-        if(pools.TryGetValue(key, out Pool pool) == false)
+        if (pools.TryGetValue(key, out Pool pool) == false)
         {
             // 처음 Pool을 생성한다.
             // SpawningPool GameObject 하위에 GameObject를 생성할 수 있게 된다.
-            if(key == ParticleEffectType.Hit.ToString())
+            if (key == ParticleEffectType.Hit.ToString())
             {
                 pool = new Pool(hitPrefab, transform);
             }
-            else if(key == ParticleEffectType.Nice.ToString())
+            else if (key == ParticleEffectType.Nice.ToString())
             {
                 pool = new Pool(nicePrefab, transform);
             }
-            else if(key == ParticleEffectType.Miss.ToString())
+            else if (key == ParticleEffectType.Miss.ToString())
             {
                 pool = new Pool(missPrefab, transform);
             }
@@ -144,7 +142,7 @@ public class SpawningPool : MonoBehaviour
     public void Despawn(GameObject go)
     {
         ParticleEffect pe = go.GetComponent<ParticleEffect>();
-        if(pe == null)
+        if (pe == null)
         {
             Debug.LogError("Not Found ParticleEffect");
             return;
@@ -153,14 +151,12 @@ public class SpawningPool : MonoBehaviour
         pools[pe.type.ToString()].Push(go);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

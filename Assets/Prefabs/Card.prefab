@@ -560,10 +560,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce61b4b49f6e1e44b5019c49d2a0a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idx: 0
-  idx2: 0
-  front: {fileID: 5604229383747074896}
-  back: {fileID: 4742391617948874690}
+  frontCard: {fileID: 5604229383747074896}
+  backCard: {fileID: 4742391617948874690}
   Anim: {fileID: 7027975559328888113}
   frontImage: {fileID: 375808298237857322}
   backImage: {fileID: 8835059532436707491}
